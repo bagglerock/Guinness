@@ -19,20 +19,10 @@ class SpoonacularClient {
     // map query model to params
     // const params = '';
 
-    // const response = await this.httpClient.get(`/recipes/complexSearch?${params}`);
-    console.log('sdfsd');
+    const response = await this.httpClient.get(`/recipes/complexSearch?query=pasta&apiKey=${SPOONACULAR_API_KEY}`);
 
-    try {
-      const response = await this.httpClient.get(`/recipes/complexSearch?query=pasta&apiKey=${SPOONACULAR_API_KEY}`);
-
-      console.log(response);
-
-      return response;
-    } catch (e) {
-      console.log(e);
-
-      return e;
-    }
+    // map the response to something useful.... there is data: {results: []}, there is also status: int, statusText: OK
+    return response;
   };
 }
 
