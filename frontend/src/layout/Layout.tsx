@@ -7,10 +7,8 @@ export const Layout: React.FC = () => {
 
   return (
     <div className="app-layout d-flex flex-column">
-      <div className="header">
-        <a href="/">
-          <div className="peachco-logo"></div>
-        </a>
+      <div>
+        <div>Header</div>
       </div>
       <div className="flex-grow-1 w-100 main">
         <Main />
