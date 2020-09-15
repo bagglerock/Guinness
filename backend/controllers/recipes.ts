@@ -29,6 +29,8 @@ class RecipeController {
 
     if (id === '') {
       res.status(400).send('Invalid ID');
+
+      return;
     }
 
     try {
