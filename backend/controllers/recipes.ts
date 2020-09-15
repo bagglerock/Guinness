@@ -23,8 +23,12 @@ class RecipeController {
   getRecipeById = async (req: Request, res: Response) => {
     let id = '';
 
-    if (req.params && req.params.id && typeof req.params.id === 'string') {
+    if (req.params && req.params.id && typeof req.params.id === 'string' && isNaN(+req.params.id) === false) {
       id = req.params.id;
+    }
+
+    if (id === '') {
+      res.status(400).send('Invalid ID');
     }
 
     try {
