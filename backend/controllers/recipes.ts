@@ -1,28 +1,46 @@
 import { AxiosError } from 'axios';
+import buildUrl, { BuildUrlOptions } from 'build-url';
 import { Request, Response } from 'express';
+import { pick } from 'lodash';
 import { spoonacularClient } from '../services/spoonacularClient';
 
 class RecipeController {
-  getByKeyword = async (req: Request, res: Response) => {
-    // not sure if the request should come in as an object or an already made string made of parameters
-    // if its an object, the params are hidden to the user in the url and cannot be shared as a link
-    // if its a string, then the params must be made in the front end and sent back here and have the key appended
-    console.log(req);
+  getRecipesByKeyword = async (req: Request, res: Response) => {
+    const queryParams = req.query;
+    const validatedQuery = pick(queryParams, validationDictionary);
+
+    const queryString = buildUrl('', { queryParams: validatedQuery } as BuildUrlOptions);
 
     try {
-      const response = await spoonacularClient.getRecipes();
+      const response = await spoonacularClient.searchRecipes(queryString);
 
       res.status(200).send(response);
     } catch (e) {
-      this.handleError(e);
+      this.handleError(e, res);
     }
-
-    res.send('getByKeyword has been hit');
   };
 
-  handleError = (e: AxiosError) => {
-    return e;
+  getRecipeById = async (req: Request, res: Response) => {
+    let id = '';
+
+    if (req.params && req.params.id && typeof req.params.id === 'string') {
+      id = req.params.id;
+    }
+
+    try {
+      const response = await spoonacularClient.getRecipeInformation(id);
+
+      res.status(200).send(response);
+    } catch (e) {
+      this.handleError(e, res);
+    }
+  };
+
+  handleError = (e: AxiosError, res: Response) => {
+    res.status(400).send(e.message);
   };
 }
 
 export const recipeController = new RecipeController();
+
+const validationDictionary: string[] = ['query', 'cuisine', 'intolerances', 'includeIngredients'];

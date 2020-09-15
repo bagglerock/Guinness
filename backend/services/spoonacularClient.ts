@@ -15,14 +15,16 @@ class SpoonacularClient {
     });
   }
 
-  getRecipes = async () => {
-    // map query model to params
-    // const params = '';
+  searchRecipes = async (query: string) => {
+    const response = await this.httpClient.get(`/recipes/complexSearch${query}&apiKey=${SPOONACULAR_API_KEY}`);
 
-    const response = await this.httpClient.get(`/recipes/complexSearch?query=pasta&apiKey=${SPOONACULAR_API_KEY}`);
+    return response.data;
+  };
 
-    // map the response to something useful.... there is data: {results: []}, there is also status: int, statusText: OK
-    return response;
+  getRecipeInformation = async (id: string) => {
+    const response = await this.httpClient.get(`/recipes/${id}/information?apiKey=${SPOONACULAR_API_KEY}`);
+
+    return response.data;
   };
 }
 
