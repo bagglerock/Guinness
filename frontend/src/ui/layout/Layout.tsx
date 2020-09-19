@@ -1,4 +1,4 @@
-import { Main } from 'app/Main';
+import { Main } from 'ui/app/Main';
 import moment from 'moment';
 import React from 'react';
 

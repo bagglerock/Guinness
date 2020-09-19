@@ -1,6 +1,6 @@
-import { Layout } from 'layout/Layout';
 import React from 'react';
-import 'app/app.scss';
+import 'ui/app/app.scss';
+import { Layout } from 'ui/layout/Layout';
 
 export const App: React.FC = () => (
   <div className="app">

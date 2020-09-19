@@ -1,0 +1,11 @@
+@import 'src/ui/style/reset';
+@import 'src/ui/style/core';
+@import 'src/ui/style/main';
+
+.app {
+  height: 100vh;
+}
+
+.app-layout {
+  min-height: 100%;
+}
