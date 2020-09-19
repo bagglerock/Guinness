@@ -1,6 +1,6 @@
 import { Button } from '@blueprintjs/core/lib/esm/components/button/buttons';
 import { InputGroup } from '@blueprintjs/core/lib/esm/components/forms/inputGroup';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
 
 export const Search: React.FC = () => {
