@@ -9,6 +9,14 @@ class RecipeRepository {
 
     return response.data;
   }
+
+  async getById(id: string): Promise<any> {
+    const route = recipeRoutes.getById(id);
+
+    const response = await recipeClient.getById(route);
+
+    return response.data;
+  }
 }
 
 export const recipeRepository = new RecipeRepository();
