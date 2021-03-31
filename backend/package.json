@@ -21,7 +21,7 @@
     "path": "^0.12.7"
   },
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || yarn start:dev",
+    "start": "clear && if-env NODE_ENV=production && npm run start:prod || yarn start:dev",
     "start:prod": "node dist/server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"yarn client\"",
     "client": "cd ../frontend && yarn start",
