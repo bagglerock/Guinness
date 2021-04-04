@@ -2,7 +2,7 @@ import { Button } from '@blueprintjs/core/lib/esm/components/button/buttons';
 import { InputGroup } from '@blueprintjs/core/lib/esm/components/forms/inputGroup';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
+import q from 'query-string';
 
 export const RecipeHeaderSearch: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,7 +13,11 @@ export const RecipeHeaderSearch: React.FC = () => {
       return;
     }
 
-    history.push('/search');
+    const searchParams = {
+      query: searchTerm,
+    };
+
+    history.push(`/search?` + q.stringify(searchParams));
   };
 
   const handleChange = (e: any) => {
