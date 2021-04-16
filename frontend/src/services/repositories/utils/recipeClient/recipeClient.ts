@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 class RecipeClient {
-  async getByKeyword(url: string): Promise<any> {
+  async getAllRecipes(url: string): Promise<any> {
     return axios.get(url);
   }
 
