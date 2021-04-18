@@ -9,7 +9,7 @@ class RecipeRepository {
 
     const response = await recipeClient.getAllRecipes(route);
 
-    return mapRecipeSummaries(response);
+    return mapRecipeSummaries(response.data);
   }
 
   async getById(id: string): Promise<any> {
