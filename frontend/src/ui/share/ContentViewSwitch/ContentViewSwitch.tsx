@@ -10,7 +10,7 @@ export const ContentViewSwitch = <T extends {}>(props: ViewSwitchProps<T>) => {
     return <LoadingView />;
   }
 
-  if (error != '') {
+  if (!!error) {
     return <ErrorView />;
   }
 
