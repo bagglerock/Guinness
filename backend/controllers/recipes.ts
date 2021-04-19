@@ -43,8 +43,8 @@ class RecipeController {
   };
 
   handleError = (e: AxiosError, res: Response) => {
-    if (e.response?.data != null) {
-      res.status(400).send(e.response.data);
+    if (e.response != null) {
+      res.status(e.response.status).send(e.response.data);
 
       return;
     }
