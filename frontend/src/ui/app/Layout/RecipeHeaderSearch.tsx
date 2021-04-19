@@ -39,6 +39,7 @@ export const RecipeHeaderSearch: React.FC = () => {
         round={true}
         onKeyDown={searchByEnter}
         leftIcon="search"
+        maxLength={55}
         rightElement={<Button text="Search" onClick={handleClick} />}
       />
     </div>
