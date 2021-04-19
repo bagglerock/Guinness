@@ -20,6 +20,12 @@ export const RecipeHeaderSearch: React.FC = () => {
     history.push(`/search?` + q.stringify(searchParams));
   };
 
+  const searchByEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleClick();
+    }
+  };
+
   const handleChange = (e: any) => {
     setSearchTerm(e.target.value);
   };
@@ -31,6 +37,7 @@ export const RecipeHeaderSearch: React.FC = () => {
         fill={true}
         large={true}
         round={true}
+        onKeyDown={searchByEnter}
         leftIcon="search"
         rightElement={<Button text="Search" onClick={handleClick} />}
       />
