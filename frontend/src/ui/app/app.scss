@@ -1,12 +1,9 @@
 @import 'src/ui/style/reset';
 @import 'src/ui/style/core';
-@import 'src/ui/style/main';
 @import 'src/ui/share/components/pagination/pagination.scss';
 
 .app {
-  height: 100vh;
-}
-
-.app-layout {
-  min-height: 100%;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
 }
