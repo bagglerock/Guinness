@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import q from 'query-string';
 
-export const RecipeHeaderSearch: React.FC = () => {
+export const RecipeSearch: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const history = useHistory();
 
@@ -31,7 +31,7 @@ export const RecipeHeaderSearch: React.FC = () => {
   };
 
   return (
-    <div className="bg-danger" style={{ height: '30vh' }}>
+    <div className="bg-danger">
       <InputGroup
         onChange={(e: any) => handleChange(e)}
         fill={true}

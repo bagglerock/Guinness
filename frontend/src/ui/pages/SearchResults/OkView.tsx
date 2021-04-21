@@ -5,7 +5,7 @@ import { RecipeSummaries } from 'services/repositories/recipeRepository/models/R
 
 export const OkView: React.FC<RecipeSummaries> = props => {
   return (
-    <>
+    <div>
       <h2>Search Results: </h2>
       <ul>
         {map(props.recipes, recipe => {
@@ -24,6 +24,6 @@ export const OkView: React.FC<RecipeSummaries> = props => {
           );
         })}
       </ul>
-    </>
+    </div>
   );
 };
