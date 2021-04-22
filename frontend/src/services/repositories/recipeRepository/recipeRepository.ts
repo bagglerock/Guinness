@@ -1,7 +1,7 @@
 import { mapRecipeSummaries } from 'services/repositories/recipeRepository/mappers/mapRecipeSummaries';
 import { RecipeSummaries } from 'services/repositories/recipeRepository/models/RecipeSummaries';
-import { recipeClient } from 'services/repositories/utils/recipeClient/recipeClient';
-import { recipeRoutes } from 'services/repositories/utils/recipeClient/recipeRoutes';
+import { recipeClient } from 'services/utils/recipeClient/recipeClient';
+import { recipeRoutes } from 'services/utils/recipeClient/recipeRoutes';
 
 class RecipeRepository {
   async getAllRecipes(keyword: string): Promise<RecipeSummaries> {
