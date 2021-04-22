@@ -7,7 +7,9 @@ export const Layout: React.FC = () => (
   <div className="d-flex flex-column h-100">
     <Header />
 
-    <Main />
+    <div className="main">
+      <Main />
+    </div>
 
     <Footer />
   </div>
