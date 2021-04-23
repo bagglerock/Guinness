@@ -8,7 +8,7 @@ body,
   display: flex;
   flex-direction: column;
   margin: auto;
-  max-width: 2400px;
+  max-width: 2000px;
 
   .main {
     flex: 1 0;
@@ -18,3 +18,5 @@ body,
     flex: 0 0;
   }
 }
+
+@import './ui/app/_app.scss';
