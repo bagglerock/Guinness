@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFetch } from 'ui/share/useFetch';
+import { useFetch } from 'ui/share/ContentViewSwitch/useFetch';
 
 export const ContentViewSwitch = <T extends {}>(props: ViewSwitchProps<T>) => {
   const { fetchFunc, OkView, ErrorView, LoadingView, rerenderTriggers = [] } = props;
