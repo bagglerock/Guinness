@@ -1,29 +1,64 @@
-import React from 'react';
+import { parse } from 'query-string';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
+import { RecipeSummaries } from 'services/repositories/recipeRepository/models/RecipeSummaries';
 import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
-import { OkView } from 'ui/pages/SearchResults/views/OkView';
-import { useQuery } from 'ui/pages/SearchResults/useQuery';
-import { ContentViewSwitch } from 'ui/share/ContentViewSwitch/ContentViewSwitch';
-import { GenericErrorView } from 'ui/share/genericViews/GenericErrorView';
-import { GenericLoadingView } from 'ui/share/genericViews/GenericLoadingView';
+import { RecipeSummariesList } from 'ui/pages/SearchResults/RecipeSummariesList/RecipeSummariesList';
+import { SearchParameters } from 'ui/pages/SearchResults/SearchParameters';
+import { GenericErrorView } from 'ui/pages/share/genericViews/GenericErrorView';
+import { GenericLoadingView } from 'ui/pages/share/genericViews/GenericLoadingView';
 
 export const SearchResults: React.FC = () => {
-  const { query } = useQuery();
+  const [isLoading, setIsLoading] = useState(true);
+  const [result, setResult] = useState<RecipeSummaries>();
+  const [error, setError] = useState();
+  const [parameters, setParameters] = useState<SearchParameters>(new SearchParameters({}));
 
-  if (!query) {
-    return <NoQuery />;
+  const location = useLocation();
+
+  useEffect(() => {
+    setParameters(extractParametersFromUrl(location.search));
+  }, [location]);
+
+  useEffect(() => {
+    recipeRepository
+      .getAllRecipes(parameters)
+      .then(data => setResult(data))
+      .catch(err => setError(err))
+      .finally(() => setIsLoading(false));
+  }, [parameters]);
+
+  if (parameters.query == null) {
+    return <p>The query is blank.</p>;
   }
 
-  const fetch = () => recipeRepository.getAllRecipes(query);
+  if (isLoading) {
+    return <GenericLoadingView />;
+  }
+
+  if (error != null) {
+    return <GenericErrorView />;
+  }
 
   return (
-    <ContentViewSwitch
-      fetchFunc={fetch}
-      OkView={OkView}
-      LoadingView={GenericLoadingView}
-      ErrorView={GenericErrorView}
-      rerenderTriggers={[query]}
-    />
+    <>
+      <div className="mb-3">
+        <h2 className="page-heading">Search Results: </h2>
+      </div>
+
+      <RecipeSummariesList recipes={result?.recipes || []} />
+    </>
   );
 };
 
-const NoQuery: React.FC = () => <p>The query is blank.</p>;
+const extractParametersFromUrl = (location: string) => {
+  const parsedUrl = parse(location);
+
+  const query = parsedUrl.query ? parsedUrl.query.toString() : '';
+  const filters = parsedUrl.filters ? parsedUrl.filters.toString() : '';
+
+  return {
+    query,
+    filters,
+  };
+};

@@ -1,4 +1,6 @@
+import { SearchParameters } from 'ui/pages/SearchResults/SearchParameters';
+
 export const recipeRoutes = {
-  getByKeyword: (keyword: string): string => `/api/recipe?query=${keyword}`,
+  getByKeyword: (parameters: SearchParameters): string => `/api/recipe?query=${parameters.query}`,
   getById: (id: string): string => `/api/recipe/${id}`,
 };
