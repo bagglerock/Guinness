@@ -15,7 +15,7 @@ class SpoonacularClient {
     });
   }
 
-  searchRecipes = async (query: string) => {
+  getRecipes = async (query: string) => {
     const response = await this.httpClient.get(`/recipes/complexSearch${query}&apiKey=${SPOONACULAR_API_KEY}`);
 
     return response.data;

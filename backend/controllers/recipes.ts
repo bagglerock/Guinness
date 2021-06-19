@@ -9,10 +9,10 @@ class RecipeController {
     const queryParams = req.query;
     const validatedQuery = pick(queryParams, validationDictionary);
 
-    const queryString = buildUrl('', { queryParams: validatedQuery } as BuildUrlOptions);
+    const keyword = buildUrl('', { queryParams: validatedQuery } as BuildUrlOptions);
 
     try {
-      const response = await spoonacularClient.searchRecipes(queryString);
+      const response = await spoonacularClient.getRecipes(keyword);
 
       res.status(200).send(response);
     } catch (e) {
