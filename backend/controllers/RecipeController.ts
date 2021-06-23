@@ -1,18 +1,22 @@
 import { AxiosError } from 'axios';
-import buildUrl, { BuildUrlOptions } from 'build-url';
 import { Request, Response } from 'express';
-import { pick } from 'lodash';
+import { recipeManager } from '../managers/RecipeManager';
+import { SearchParameters } from '../managers/SearchParameters';
 import { spoonacularClient } from '../services/spoonacularClient';
 
 class RecipeController {
   getRecipesByKeyword = async (req: Request, res: Response) => {
-    const queryParams = req.query;
-    const validatedQuery = pick(queryParams, validationDictionary);
+    const request = req.query;
 
-    const keyword = buildUrl('', { queryParams: validatedQuery } as BuildUrlOptions);
+    const parameters: SearchParameters = {
+      query: request.query?.toString() || '',
+      pageNumber: +request.pageNumber! || 1,
+      numExpected: +request.numExpected! || 10,
+      filters: request.filters?.toString() || '',
+    };
 
     try {
-      const response = await spoonacularClient.getRecipes(keyword);
+      const response = await recipeManager.searchRecipes(parameters);
 
       res.status(200).send(response);
     } catch (e) {
@@ -54,5 +58,3 @@ class RecipeController {
 }
 
 export const recipeController = new RecipeController();
-
-const validationDictionary: string[] = ['query', 'cuisine', 'intolerances', 'includeIngredients'];
