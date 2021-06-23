@@ -1,3 +1,4 @@
+import { stringify } from 'query-string';
 import { mapRecipeSummaries } from 'services/repositories/recipeRepository/mappers/mapRecipeSummaries';
 import { RecipeSummaries } from 'services/repositories/recipeRepository/models/RecipeSummaries';
 import { recipeClient } from 'services/utils/recipeClient/recipeClient';
@@ -6,7 +7,8 @@ import { SearchParameters } from 'ui/pages/SearchResults/SearchParameters';
 
 class RecipeRepository {
   async getAllRecipes(parameters: SearchParameters): Promise<RecipeSummaries> {
-    const route = recipeRoutes.getByKeyword(parameters);
+    const queryString = stringify(parameters);
+    const route = recipeRoutes.getByKeyword(queryString);
 
     const response = await recipeClient.getAllRecipes(route);
 
