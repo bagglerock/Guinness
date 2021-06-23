@@ -10,9 +10,9 @@ class RecipeManager {
       number: parameters.numExpected.toString(),
     };
 
-    const url = buildUrl('', { queryParams } as BuildUrlOptions);
+    const queryString = buildUrl('', { queryParams } as BuildUrlOptions);
 
-    return spoonacularClient.getRecipes(url);
+    return spoonacularClient.getRecipes(queryString);
   };
 }
 
