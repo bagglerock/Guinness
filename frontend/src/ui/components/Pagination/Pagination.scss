@@ -3,4 +3,11 @@
   padding: 5px 10px;
   border: none;
   background: none;
+  min-width: 40px;
+  color: darkgray;
+
+  &.active {
+    color: black;
+    font-weight: bolder;
+  }
 }
