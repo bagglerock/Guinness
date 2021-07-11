@@ -1,3 +1,3 @@
-## Guinness
+### Recipe Site using NodeJS backend and React frontend
 
-### Chef's Den... Third take....
+### To run this, yarn install and yarn start from the backend directory.
