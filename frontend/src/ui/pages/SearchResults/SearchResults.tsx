@@ -1,6 +1,6 @@
-import { parse } from 'query-string';
+import { parse, stringify } from 'query-string';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { RecipeSummaries } from 'services/repositories/recipeRepository/models/RecipeSummaries';
 import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
 import { GenericErrorView } from 'ui/components/genericViews/GenericErrorView';
@@ -13,13 +13,18 @@ export const SearchResults: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState<RecipeSummaries>();
   const [error, setError] = useState();
-  const [parameters, setParameters] = useState<SearchParameters>();
 
   const location = useLocation();
+  const { query, pageNumber, pageLimit, filters } = extractParametersFromUrl(location.search);
 
-  useEffect(() => {
-    setParameters(extractParametersFromUrl(location.search));
-  }, [location]);
+  const history = useHistory();
+
+  const parameters = new SearchParameters({
+    query,
+    pageNumber,
+    pageLimit,
+    filters,
+  });
 
   useEffect(() => {
     if (parameters != null) {
@@ -29,7 +34,7 @@ export const SearchResults: React.FC = () => {
         .catch(err => setError(err))
         .finally(() => setIsLoading(false));
     }
-  }, [parameters]);
+  }, [location]);
 
   if (parameters?.query == null) {
     return <p>The query is blank.</p>;
@@ -48,7 +53,7 @@ export const SearchResults: React.FC = () => {
   }
 
   const setPage = (pageNumber: number) => {
-    setParameters({ ...parameters, pageNumber });
+    history.push(`/search?${stringify({ ...parameters, pageNumber })}`);
   };
 
   return (
@@ -59,7 +64,12 @@ export const SearchResults: React.FC = () => {
 
       <RecipeSummariesList recipes={result?.recipes || []} />
 
-      <Pagination totalResults={result?.totalResults || 0} currentPage={parameters.pageNumber || 0} pageLimit={20} gotoPage={setPage} />
+      <Pagination
+        totalResults={result?.totalResults || 0}
+        currentPage={parameters.pageNumber}
+        pageLimit={parameters.pageLimit}
+        gotoPage={setPage}
+      />
     </>
   );
 };
@@ -74,7 +84,7 @@ const extractParametersFromUrl = (location: string): SearchParameters => {
   return {
     query,
     pageNumber,
-    numExpected: 50,
+    pageLimit: 50,
     filters,
   };
 };
