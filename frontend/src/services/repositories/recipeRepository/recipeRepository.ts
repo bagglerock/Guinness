@@ -4,9 +4,13 @@ import { RecipeSummaries } from 'services/repositories/recipeRepository/models/R
 import { recipeClient } from 'services/utils/recipeClient/recipeClient';
 import { recipeRoutes } from 'services/utils/recipeClient/recipeRoutes';
 import { SearchParameters } from 'ui/pages/SearchResults/SearchParameters';
+// import { mockGetAllRecipesResponse } from 'services/repositories/recipeRepository/__tests__/mockGetAllRecipesResponse';
 
 class RecipeRepository {
   async getAllRecipes(parameters: SearchParameters): Promise<RecipeSummaries> {
+    console.log('PARAMETERS: ', parameters);
+    // return mapRecipeSummaries(mockGetAllRecipesResponse);
+
     const queryString = stringify(parameters);
     const route = recipeRoutes.getByKeyword(queryString);
 
