@@ -15,6 +15,7 @@ export const mapRecipeSummaries = (data: any): RecipeSummaries => {
   return new RecipeSummaries({
     count: data.number,
     offset: data.offset,
+    totalResults: data.totalResults,
     recipes,
   });
 };

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import q from 'query-string';
 
-export const RecipeSearch: React.FC = () => {
+export const Search: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const history = useHistory();
 

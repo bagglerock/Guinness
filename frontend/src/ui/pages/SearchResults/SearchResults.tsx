@@ -1,29 +1,43 @@
 import React from 'react';
-import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
-import { OkView } from 'ui/pages/SearchResults/views/OkView';
-import { useQuery } from 'ui/pages/SearchResults/useQuery';
-import { ContentViewSwitch } from 'ui/share/ContentViewSwitch/ContentViewSwitch';
-import { GenericErrorView } from 'ui/share/genericViews/GenericErrorView';
-import { GenericLoadingView } from 'ui/share/genericViews/GenericLoadingView';
+import { GenericErrorView } from 'ui/components/genericViews/GenericErrorView';
+import { GenericLoadingView } from 'ui/components/genericViews/GenericLoadingView';
+import { Pagination } from 'ui/components/Pagination/Pagination';
+import { RecipeSummariesList } from 'ui/pages/SearchResults/RecipeSummariesList/RecipeSummariesList';
+import { useFetchQuery } from 'ui/pages/SearchResults/useFetchQuery';
 
 export const SearchResults: React.FC = () => {
-  const { query } = useQuery();
+  const { parameters, isLoading, error, result, setPage } = useFetchQuery();
 
-  if (!query) {
-    return <NoQuery />;
+  if (parameters?.query == null) {
+    return <p>The query is blank.</p>;
   }
 
-  const fetch = () => recipeRepository.getAllRecipes(query);
+  if (isLoading) {
+    return <GenericLoadingView />;
+  }
+
+  if (error != null) {
+    return <GenericErrorView />;
+  }
+
+  if (result?.totalResults === 0) {
+    return <p>Sorry, no results.</p>;
+  }
 
   return (
-    <ContentViewSwitch
-      fetchFunc={fetch}
-      OkView={OkView}
-      LoadingView={GenericLoadingView}
-      ErrorView={GenericErrorView}
-      rerenderTriggers={[query]}
-    />
+    <>
+      <div className="mb-3">
+        <h2 className="page-heading">Search Results: </h2>
+      </div>
+
+      <RecipeSummariesList recipes={result?.recipes || []} />
+
+      <Pagination
+        totalResults={result?.totalResults || 0}
+        currentPage={parameters.pageNumber}
+        pageLimit={parameters.pageLimit}
+        gotoPage={setPage}
+      />
+    </>
   );
 };
-
-const NoQuery: React.FC = () => <p>The query is blank.</p>;
