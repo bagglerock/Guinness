@@ -1,5 +1,7 @@
 import { stringify } from 'query-string';
+import { mapRecipe } from 'services/repositories/recipeRepository/mappers/mapRecipe';
 import { mapRecipeSummaries } from 'services/repositories/recipeRepository/mappers/mapRecipeSummaries';
+import { Recipe } from 'services/repositories/recipeRepository/models/Recipe';
 import { RecipeSummaries } from 'services/repositories/recipeRepository/models/RecipeSummaries';
 import { recipeClient } from 'services/utils/recipeClient/recipeClient';
 import { recipeRoutes } from 'services/utils/recipeClient/recipeRoutes';
@@ -15,12 +17,12 @@ class RecipeRepository {
     return mapRecipeSummaries(response.data);
   }
 
-  async getById(id: string): Promise<any> {
+  async getById(id: string): Promise<Recipe> {
     const route = recipeRoutes.getById(id);
 
     const response = await recipeClient.getById(route);
 
-    return response.data;
+    return mapRecipe(response.data);
   }
 }
 

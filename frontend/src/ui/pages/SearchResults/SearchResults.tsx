@@ -1,12 +1,37 @@
+import { parse } from 'query-string';
+import { stringify } from 'querystring';
 import React from 'react';
+import { useHistory, useLocation } from 'react-router';
+import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
 import { GenericErrorView } from 'ui/components/genericViews/GenericErrorView';
 import { GenericLoadingView } from 'ui/components/genericViews/GenericLoadingView';
 import { Pagination } from 'ui/components/Pagination/Pagination';
+import { useFetch } from 'ui/components/useFetch/useFetch';
 import { RecipeSummariesList } from 'ui/pages/SearchResults/RecipeSummariesList/RecipeSummariesList';
-import { useFetchQuery } from 'ui/pages/SearchResults/useFetchQuery';
+import { SearchParameters } from 'ui/pages/SearchResults/SearchParameters';
 
 export const SearchResults: React.FC = () => {
-  const { parameters, isLoading, error, result, setPage } = useFetchQuery();
+  const location = useLocation();
+  const parsedUrl = parse(location.search);
+  const query = parsedUrl.query ? parsedUrl.query.toString() : '';
+  const pageNumber = parsedUrl.pageNumber ? +parsedUrl.pageNumber : 1;
+  const filters = parsedUrl.filters ? parsedUrl.filters.toString() : '';
+  const pageLimit = parsedUrl.pageLimit ? +parsedUrl.pageLimit : 20;
+
+  const parameters = new SearchParameters({
+    query,
+    pageNumber,
+    pageLimit,
+    filters,
+  });
+
+  const { result, error, isLoading } = useFetch(() => recipeRepository.getAllRecipes(parameters), [location]);
+
+  const history = useHistory();
+
+  const setPage = (pageNumber: number) => {
+    history.push(`/search?${stringify({ ...parameters, pageNumber })}`);
+  };
 
   if (parameters?.query == null) {
     return <p>The query is blank.</p>;
