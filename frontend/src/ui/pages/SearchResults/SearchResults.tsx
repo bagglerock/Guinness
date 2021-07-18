@@ -55,6 +55,15 @@ export const SearchResults: React.FC = () => {
         <h2 className="page-heading">Search Results: </h2>
       </div>
 
+      <div className="mb-3">
+        <Pagination
+          totalResults={result?.totalResults || 0}
+          currentPage={parameters.pageNumber}
+          pageLimit={parameters.pageLimit}
+          gotoPage={setPage}
+        />
+      </div>
+
       <RecipeSummariesList recipes={result?.recipes || []} />
 
       <Pagination

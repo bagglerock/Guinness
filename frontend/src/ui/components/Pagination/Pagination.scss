@@ -4,10 +4,14 @@
   border: none;
   background: none;
   min-width: 40px;
-  color: darkgray;
+  color: #333;
 
   &.active {
     color: black;
     font-weight: bolder;
+  }
+
+  &:disabled {
+    color: #999;
   }
 }

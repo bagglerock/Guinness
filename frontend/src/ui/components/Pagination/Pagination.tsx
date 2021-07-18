@@ -1,7 +1,9 @@
 import { ceil, map } from 'lodash';
 import React from 'react';
 import { getPagesToDisplay } from 'ui/components/Pagination/utils/getPagesToDisplay';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Pagination.scss';
+import { faFastBackward, faFastForward, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons';
 
 const NUMBER_OF_ADJACENT_PAGES = 2;
 
@@ -17,34 +19,32 @@ export const Pagination: React.FC<PaginationProps> = ({ totalResults, currentPag
   const pagesToDisplay = getPagesToDisplay(numberOfPages, currentIndex, NUMBER_OF_ADJACENT_PAGES);
 
   return (
-    <div className="d-flex">
+    <div className="d-flex justify-content-center">
       <button className="pagination-button" onClick={() => gotoPage(1)} disabled={currentPage === 1}>
-        {'<<'}
+        <FontAwesomeIcon icon={faFastBackward} />
       </button>
 
       <button className="pagination-button" onClick={prevPage} disabled={!canPrevPage}>
-        {'<'}
+        <FontAwesomeIcon icon={faStepBackward} />
       </button>
 
-      <div>
-        {map(pagesToDisplay, pageIndex => (
-          <button
-            className={`pagination-button ${pageIndex === currentIndex ? 'active' : ''}`}
-            key={pageIndex}
-            value={pageIndex + 1}
-            onClick={handlePageChange}
-          >
-            {pageIndex + 1}
-          </button>
-        ))}
-      </div>
+      {map(pagesToDisplay, pageIndex => (
+        <button
+          className={`pagination-button ${pageIndex === currentIndex ? 'active' : ''}`}
+          key={pageIndex}
+          value={pageIndex + 1}
+          onClick={handlePageChange}
+        >
+          {pageIndex + 1}
+        </button>
+      ))}
 
       <button className="pagination-button" onClick={nextPage} disabled={!canNextPage}>
-        {'>'}
+        <FontAwesomeIcon icon={faStepForward} />
       </button>
 
       <button className="pagination-button" onClick={() => gotoPage(numberOfPages)} disabled={currentPage === numberOfPages}>
-        {'>>'}
+        <FontAwesomeIcon icon={faFastForward} />
       </button>
     </div>
   );
