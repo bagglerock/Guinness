@@ -16,21 +16,19 @@ export const RecipeSummariesList: React.FC<RecipeSummariesListProps> = ({ recipe
 
   return (
     <ul className="recipe-summaries ml-n3 mr-n3">
-      {map(recipes, recipe => {
-        return (
-          <li className="recipe-summary " key={recipe.id}>
-            <Card>
-              <img className="recipe-summary_image" src={recipe.image} alt={recipe.title} id={`${recipe.id}`} onClick={handleRecipeClick} />
+      {map(recipes, recipe => (
+        <li className="recipe-summary " key={recipe.id}>
+          <Card>
+            <img className="recipe-summary_image" src={recipe.image} alt={recipe.title} id={`${recipe.id}`} onClick={handleRecipeClick} />
 
-              <div className="pt-3 mb-3">
-                <h3 className="recipe-summary_heading" id={`${recipe.id}`} onClick={handleRecipeClick}>
-                  {recipe.title}
-                </h3>
-              </div>
-            </Card>
-          </li>
-        );
-      })}
+            <div className="pt-3 mb-3">
+              <h3 className="recipe-summary_heading" id={`${recipe.id}`} onClick={handleRecipeClick}>
+                {recipe.title}
+              </h3>
+            </div>
+          </Card>
+        </li>
+      ))}
     </ul>
   );
 };

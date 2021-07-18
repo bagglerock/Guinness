@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Header.scss';
 
 export const Header: React.FC = () => (
   <div className="header">
-    <a href="/">Header</a>
+    <Link to="/">Chef's Den</Link>
   </div>
 );
