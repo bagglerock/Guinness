@@ -31,7 +31,7 @@ export const Search: React.FC = () => {
   };
 
   return (
-    <div className="bg-danger">
+    <div className="bg-danger p-3">
       <InputGroup
         onChange={(e: any) => handleChange(e)}
         fill={true}

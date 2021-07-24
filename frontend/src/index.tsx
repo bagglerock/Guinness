@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@blueprintjs/core/lib/css/blueprint.css';
 import { App } from 'ui/app/App';
 import React from 'react';
 import ReactDOM from 'react-dom';

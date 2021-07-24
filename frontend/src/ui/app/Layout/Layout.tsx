@@ -11,9 +11,7 @@ export const Layout: React.FC = () => (
     <div className="main">
       <Search />
 
-      <div className="mt-3 mr-3 ml-3">
-        <RoutesContainer />
-      </div>
+      <RoutesContainer />
     </div>
 
     <Footer />
