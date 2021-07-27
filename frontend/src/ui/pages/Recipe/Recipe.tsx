@@ -43,11 +43,11 @@ export const Recipe: React.FC = () => {
 
       <ul>
         {map(result.analyzedInstructions, stage => (
-          <li>
+          <li key={stage.name}>
             <p>{stage.name}</p>
             <ul>
               {map(stage.steps, step => (
-                <li>
+                <li key={step.stepNumber}>
                   Step: {step.stepNumber} - {step.stepInstruction}
                 </li>
               ))}
