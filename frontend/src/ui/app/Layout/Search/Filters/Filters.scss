@@ -1,0 +1,10 @@
+.filters__open-button {
+  background-color: transparent;
+  color: white;
+  font-size: 0.8em;
+  border: none;
+
+  &:focus {
+    outline: transparent;
+  }
+}
