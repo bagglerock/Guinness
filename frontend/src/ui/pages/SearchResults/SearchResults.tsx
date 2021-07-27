@@ -1,5 +1,4 @@
-import { parse } from 'query-string';
-import { stringify } from 'querystring';
+import { parse, stringify } from 'query-string';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
@@ -12,17 +11,13 @@ import { SearchParameters } from 'ui/pages/SearchResults/SearchParameters';
 
 export const SearchResults: React.FC = () => {
   const location = useLocation();
-  const parsedUrl = parse(location.search);
-  const query = parsedUrl.query ? parsedUrl.query.toString() : '';
-  const pageNumber = parsedUrl.pageNumber ? +parsedUrl.pageNumber : 1;
-  const filters = parsedUrl.filters ? parsedUrl.filters.toString() : '';
-  const pageLimit = parsedUrl.pageLimit ? +parsedUrl.pageLimit : 20;
+  const { query, pageNumber, pageLimit, filters } = parse(location.search);
 
   const parameters = new SearchParameters({
-    query,
-    pageNumber,
-    pageLimit,
-    filters,
+    query: query ? query.toString() : '',
+    pageNumber: pageNumber ? +pageNumber : 1,
+    pageLimit: pageLimit ? +pageLimit : 20,
+    filters: filters ? filters.toString() : '',
   });
 
   const { result, error, isLoading } = useFetch(() => recipeRepository.getAllRecipes(parameters), [location]);
