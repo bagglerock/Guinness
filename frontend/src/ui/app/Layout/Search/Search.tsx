@@ -1,6 +1,6 @@
 import { Button } from '@blueprintjs/core';
 import { InputGroup } from '@blueprintjs/core/lib/esm/components/forms/inputGroup';
-import q from 'query-string';
+import { stringify } from 'query-string';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { Filters } from 'ui/app/Layout/Search/Filters/Filters';
@@ -9,32 +9,33 @@ export const Search: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const history = useHistory();
 
-  const handleClick = async () => {
+  const handleSearch = async () => {
     if (searchTerm === '') {
       return;
     }
 
     const searchParams = {
       query: searchTerm,
+      pageNumber: 1,
     };
 
-    history.push(`/search?` + q.stringify(searchParams));
+    history.push(`/search?${stringify(searchParams)}`);
   };
 
-  const handleEnterKey: React.KeyboardEventHandler<HTMLInputElement> = e => {
-    if (e.key === 'Enter') {
-      handleClick();
+  const handleEnterKey: React.KeyboardEventHandler<HTMLInputElement> = event => {
+    if (event.key === 'Enter') {
+      handleSearch();
     }
   };
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-    setSearchTerm(e.target.value);
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+    setSearchTerm(event.target.value);
   };
 
-  const handleFiltersChange: React.FormEventHandler<HTMLFormElement> = e => {
-    e.preventDefault();
+  const handleFiltersChange: React.FormEventHandler<HTMLFormElement> = event => {
+    event.preventDefault();
 
-    console.log('filters will be changed.');
+    console.log('This will set the url with the new filters from state. Separate out the history.push function since it might be reused');
   };
 
   return (
@@ -47,7 +48,7 @@ export const Search: React.FC = () => {
         onKeyDown={handleEnterKey}
         leftIcon="search"
         maxLength={55}
-        rightElement={<Button text="Search" onClick={handleClick} />}
+        rightElement={<Button text="Search" onClick={handleSearch} />}
       />
 
       <div className="mt-1">

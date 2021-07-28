@@ -9,15 +9,15 @@ import { useFetch } from 'ui/components/useFetch/useFetch';
 import { RecipeSummariesList } from 'ui/pages/SearchResults/RecipeSummariesList/RecipeSummariesList';
 import { SearchParameters } from 'ui/pages/SearchResults/SearchParameters';
 
+const PAGE_LIMIT = 20;
+
 export const SearchResults: React.FC = () => {
   const location = useLocation();
-  const { query, pageNumber, pageLimit, filters } = parse(location.search);
+  const { query, pageNumber } = parse(location.search);
 
   const parameters = new SearchParameters({
     query: query ? query.toString() : '',
     pageNumber: pageNumber ? +pageNumber : 1,
-    pageLimit: pageLimit ? +pageLimit : 20,
-    filters: filters ? filters.toString() : '',
   });
 
   const { result, error, isLoading } = useFetch(() => recipeRepository.getAllRecipes(parameters), [location]);
@@ -54,19 +54,14 @@ export const SearchResults: React.FC = () => {
         <Pagination
           totalResults={result?.totalResults || 0}
           currentPage={parameters.pageNumber}
-          pageLimit={parameters.pageLimit}
+          pageLimit={PAGE_LIMIT}
           gotoPage={setPage}
         />
       </div>
 
       <RecipeSummariesList recipes={result?.recipes || []} />
 
-      <Pagination
-        totalResults={result?.totalResults || 0}
-        currentPage={parameters.pageNumber}
-        pageLimit={parameters.pageLimit}
-        gotoPage={setPage}
-      />
+      <Pagination totalResults={result?.totalResults || 0} currentPage={parameters.pageNumber} pageLimit={PAGE_LIMIT} gotoPage={setPage} />
     </div>
   );
 };
