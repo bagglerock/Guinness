@@ -1,17 +1,24 @@
-import { Card, Checkbox, Collapse, Tab, Tabs } from '@blueprintjs/core';
-import { map } from 'lodash';
+import { Button, Card, Collapse, Tab, Tabs } from '@blueprintjs/core';
 import React, { useState } from 'react';
+import { FilterCheckboxes } from 'ui/app/Layout/Search/Filters/FilterCheckboxes/FilterCheckboxes';
+import { FiltersModel } from 'ui/app/Layout/Search/Filters/FiltersModel';
 import { cuisines } from 'ui/app/Layout/Search/Filters/res/cuisines';
 import { diets } from 'ui/app/Layout/Search/Filters/res/diets';
 import { intolerances } from 'ui/app/Layout/Search/Filters/res/intolerances';
 import { mealTypes } from 'ui/app/Layout/Search/Filters/res/mealTypes';
 import './Filters.scss';
 
-export const Filters: React.FC<FiltersProps> = ({ onSubmit }) => {
+export const Filters: React.FC<FiltersProps> = ({ selectedFilters, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCollapseToggle = () => {
     setIsOpen(prev => !prev);
+  };
+
+  const handleFilterChange = (selected: string[], keyName: string) => {
+    const updatedFilters = { filters: { ...selectedFilters.filters, [keyName]: selected } };
+
+    onChange(updatedFilters);
   };
 
   return (
@@ -24,16 +31,67 @@ export const Filters: React.FC<FiltersProps> = ({ onSubmit }) => {
 
       <Collapse isOpen={isOpen}>
         <Card style={{ backgroundColor: 'white' }}>
-          <form onSubmit={onSubmit}>
+          <form
+            onSubmit={(event: any) => {
+              event?.preventDefault();
+            }}
+          >
             <Tabs vertical>
-              <Tab id="cuisines" title="Cuisines" panel={<FilterCheckboxes filters={cuisines} />} />
-              <Tab id="diet" title="Diet" panel={<FilterCheckboxes filters={diets} />} />
-              <Tab id="type" title="Type" panel={<FilterCheckboxes filters={mealTypes} />} />
-              <Tab id="intolerances" title="Intolerances" panel={<FilterCheckboxes filters={intolerances} />} />
+              <Tab
+                id="cuisines"
+                title="Cuisines"
+                panel={
+                  <FilterCheckboxes
+                    filterValues={cuisines}
+                    selectedFilters={selectedFilters}
+                    onChange={handleFilterChange}
+                    filterKey="cuisines"
+                  />
+                }
+              />
+
+              <Tab
+                id="diets"
+                title="Diets"
+                panel={
+                  <FilterCheckboxes
+                    filterValues={diets}
+                    selectedFilters={selectedFilters}
+                    onChange={handleFilterChange}
+                    filterKey="diets"
+                  />
+                }
+              />
+
+              <Tab
+                id="mealTypes"
+                title="Meal Types"
+                panel={
+                  <FilterCheckboxes
+                    filterValues={mealTypes}
+                    selectedFilters={selectedFilters}
+                    onChange={handleFilterChange}
+                    filterKey="mealTypes"
+                  />
+                }
+              />
+
+              <Tab
+                id="intolerances"
+                title="Intolerances"
+                panel={
+                  <FilterCheckboxes
+                    filterValues={intolerances}
+                    selectedFilters={selectedFilters}
+                    onChange={handleFilterChange}
+                    filterKey="intolerances"
+                  />
+                }
+              />
             </Tabs>
 
             <div className="text-right">
-              <button type="submit">Submit</button>
+              <Button type="submit">Set Filters</Button>
             </div>
           </form>
         </Card>
@@ -43,17 +101,6 @@ export const Filters: React.FC<FiltersProps> = ({ onSubmit }) => {
 };
 
 interface FiltersProps {
-  onSubmit: React.FormEventHandler<HTMLFormElement>;
-}
-
-const FilterCheckboxes: React.FC<FilterCheckboxesProps> = ({ filters }) => (
-  <div className="border-left h-100 pl-3">
-    {map(filters, filter => (
-      <Checkbox key={filter} className="mr-4" inline label={filter} />
-    ))}
-  </div>
-);
-
-interface FilterCheckboxesProps {
-  filters: string[];
+  selectedFilters: FiltersModel;
+  onChange(newFilters: FiltersModel): void;
 }

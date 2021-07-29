@@ -4,9 +4,11 @@ import { stringify } from 'query-string';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { Filters } from 'ui/app/Layout/Search/Filters/Filters';
+import { FiltersModel } from 'ui/app/Layout/Search/Filters/FiltersModel';
 
 export const Search: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedFilters, setSelectedFilters] = useState(new FiltersModel({}));
   const history = useHistory();
 
   const handleSearch = async () => {
@@ -32,10 +34,8 @@ export const Search: React.FC = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleFiltersChange: React.FormEventHandler<HTMLFormElement> = event => {
-    event.preventDefault();
-
-    console.log('This will set the url with the new filters from state. Separate out the history.push function since it might be reused');
+  const handleFiltersChange = (updatedFilters: FiltersModel) => {
+    setSelectedFilters({ ...updatedFilters });
   };
 
   return (
@@ -52,7 +52,7 @@ export const Search: React.FC = () => {
       />
 
       <div className="mt-1">
-        <Filters onSubmit={handleFiltersChange} />
+        <Filters selectedFilters={selectedFilters} onChange={handleFiltersChange} />
       </div>
     </div>
   );
