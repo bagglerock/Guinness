@@ -6,7 +6,7 @@ export const getPagesToDisplay = (pageCount: number, currentIndex: number, adjac
   }
 
   if (currentIndex >= pageCount - adjacents) {
-    return allPages.slice(pageCount - (adjacents * 2 + 1));
+    return allPages.slice(pageCount - adjacents * 2 + 1);
   }
 
   if (currentIndex > adjacents && currentIndex < pageCount - adjacents) {
