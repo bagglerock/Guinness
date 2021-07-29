@@ -1,7 +1,7 @@
 import { Checkbox } from '@blueprintjs/core';
 import { compact, concat, includes, map, pull } from 'lodash';
 import React from 'react';
-import { FiltersModel } from 'ui/app/Layout/Search/Filters/FiltersModel';
+import { FiltersModel } from 'ui/components/Search/Filters/FiltersModel';
 
 export const FilterCheckboxes: React.FC<FilterCheckboxesProps> = ({ filterKey, filterValues, selectedFilters, onChange }) => {
   const { filters } = selectedFilters;

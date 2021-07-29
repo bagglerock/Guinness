@@ -2,8 +2,8 @@ import { parse, stringify } from 'query-string';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
-import { GenericErrorView } from 'ui/components/genericViews/GenericErrorView';
-import { GenericLoadingView } from 'ui/components/genericViews/GenericLoadingView';
+import { ErrorView } from 'ui/components/ErrorView/ErrorView';
+import { LoadingView } from 'ui/components/LoadingView/LoadingView';
 import { Pagination } from 'ui/components/Pagination/Pagination';
 import { useFetch } from 'ui/components/useFetch/useFetch';
 import { RecipeSummariesList } from 'ui/pages/SearchResults/RecipeSummariesList/RecipeSummariesList';
@@ -33,11 +33,11 @@ export const SearchResults: React.FC = () => {
   }
 
   if (isLoading) {
-    return <GenericLoadingView />;
+    return <LoadingView />;
   }
 
   if (error != null) {
-    return <GenericErrorView />;
+    return <ErrorView />;
   }
 
   if (result?.totalResults === 0) {

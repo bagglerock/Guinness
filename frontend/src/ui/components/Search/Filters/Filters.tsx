@@ -1,11 +1,11 @@
 import { Button, Card, Collapse, Tab, Tabs } from '@blueprintjs/core';
 import React, { useState } from 'react';
-import { FilterCheckboxes } from 'ui/app/Layout/Search/Filters/FilterCheckboxes/FilterCheckboxes';
-import { FiltersModel } from 'ui/app/Layout/Search/Filters/FiltersModel';
-import { cuisines } from 'ui/app/Layout/Search/Filters/res/cuisines';
-import { diets } from 'ui/app/Layout/Search/Filters/res/diets';
-import { intolerances } from 'ui/app/Layout/Search/Filters/res/intolerances';
-import { mealTypes } from 'ui/app/Layout/Search/Filters/res/mealTypes';
+import { FilterCheckboxes } from 'ui/components/Search/Filters/FilterCheckboxes/FilterCheckboxes';
+import { FiltersModel } from 'ui/components/Search/Filters/FiltersModel';
+import { cuisines } from 'ui/components/Search/Filters/res/cuisines';
+import { diets } from 'ui/components/Search/Filters/res/diets';
+import { intolerances } from 'ui/components/Search/Filters/res/intolerances';
+import { mealTypes } from 'ui/components/Search/Filters/res/mealTypes';
 import './Filters.scss';
 
 export const Filters: React.FC<FiltersProps> = ({ selectedFilters, onChange }) => {

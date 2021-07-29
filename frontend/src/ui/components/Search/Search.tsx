@@ -3,8 +3,8 @@ import { InputGroup } from '@blueprintjs/core/lib/esm/components/forms/inputGrou
 import { stringify } from 'query-string';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import { Filters } from 'ui/app/Layout/Search/Filters/Filters';
-import { FiltersModel } from 'ui/app/Layout/Search/Filters/FiltersModel';
+import { Filters } from 'ui/components/Search/Filters/Filters';
+import { FiltersModel } from 'ui/components/Search/Filters/FiltersModel';
 
 export const Search: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');

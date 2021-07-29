@@ -1,11 +1,11 @@
+import { map } from 'lodash';
 import React from 'react';
 import { useLocation } from 'react-router';
-import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
-import { GenericErrorView } from 'ui/components/genericViews/GenericErrorView';
-import { GenericLoadingView } from 'ui/components/genericViews/GenericLoadingView';
-import { useFetch } from 'ui/components/useFetch/useFetch';
 import { Recipe as RecipeModel } from 'services/repositories/recipeRepository/models/Recipe';
-import { map } from 'lodash';
+import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
+import { ErrorView } from 'ui/components/ErrorView/ErrorView';
+import { LoadingView } from 'ui/components/LoadingView/LoadingView';
+import { useFetch } from 'ui/components/useFetch/useFetch';
 
 export const Recipe: React.FC = () => {
   const location = useLocation();
@@ -14,11 +14,11 @@ export const Recipe: React.FC = () => {
   const { result = new RecipeModel({}), error, isLoading } = useFetch(() => recipeRepository.getById(recipeId), [recipeId]);
 
   if (isLoading) {
-    return <GenericLoadingView />;
+    return <LoadingView />;
   }
 
   if (error != null) {
-    return <GenericErrorView />;
+    return <ErrorView />;
   }
 
   return (
