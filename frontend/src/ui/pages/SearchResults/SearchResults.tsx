@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router';
 import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
 import { ErrorView } from 'ui/components/ErrorView/ErrorView';
 import { LoadingView } from 'ui/components/LoadingView/LoadingView';
+import { NoResultsView } from 'ui/components/NoResultsView/NoResultsView';
 import { Pagination } from 'ui/components/Pagination/Pagination';
 import { useFetch } from 'ui/components/useFetch/useFetch';
 import { RecipeSummariesList } from 'ui/pages/SearchResults/RecipeSummariesList/RecipeSummariesList';
@@ -41,7 +42,7 @@ export const SearchResults: React.FC = () => {
   }
 
   if (result?.totalResults === 0) {
-    return <p>Sorry, no results.</p>;
+    return <NoResultsView />;
   }
 
   return (
