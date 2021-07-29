@@ -11,7 +11,7 @@ class RecipeController {
     const parameters: SearchParameters = {
       query: request.query?.toString() || '',
       pageNumber: +request.pageNumber! || 1,
-      numExpected: +request.pageLimit! || 10,
+      numExpected: 20,
       filters: request.filters?.toString() || '',
     };
 
