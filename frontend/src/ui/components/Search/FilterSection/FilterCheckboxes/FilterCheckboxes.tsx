@@ -1,7 +1,7 @@
 import { Checkbox } from '@blueprintjs/core';
 import { compact, concat, includes, map, pull } from 'lodash';
 import React from 'react';
-import { FiltersModel } from 'ui/components/Search/Filters/FiltersModel';
+import { Filters } from 'ui/types/Filters';
 
 export const FilterCheckboxes: React.FC<FilterCheckboxesProps> = ({ filterKey, filterValues, selectedFilters, onChange }) => {
   const { filters } = selectedFilters;
@@ -36,6 +36,6 @@ export const FilterCheckboxes: React.FC<FilterCheckboxesProps> = ({ filterKey, f
 interface FilterCheckboxesProps {
   filterKey: string;
   filterValues: string[];
-  selectedFilters: FiltersModel;
+  selectedFilters: Filters;
   onChange(selected: string[], keyName: string): void;
 }

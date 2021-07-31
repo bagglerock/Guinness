@@ -5,7 +5,7 @@ import { Recipe } from 'services/repositories/recipeRepository/models/Recipe';
 import { RecipeSummaries } from 'services/repositories/recipeRepository/models/RecipeSummaries';
 import { recipeClient } from 'services/utils/recipeClient/recipeClient';
 import { recipeRoutes } from 'services/utils/recipeClient/recipeRoutes';
-import { SearchParameters } from 'ui/pages/SearchResults/SearchParameters';
+import { SearchParameters } from 'ui/types/SearchParameters';
 
 class RecipeRepository {
   async getAllRecipes(parameters: SearchParameters): Promise<RecipeSummaries> {

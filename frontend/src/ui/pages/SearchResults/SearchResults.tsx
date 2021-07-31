@@ -8,7 +8,7 @@ import { NoResultsView } from 'ui/components/NoResultsView/NoResultsView';
 import { Pagination } from 'ui/components/Pagination/Pagination';
 import { useFetch } from 'ui/components/useFetch/useFetch';
 import { RecipeSummariesList } from 'ui/pages/SearchResults/RecipeSummariesList/RecipeSummariesList';
-import { SearchParameters } from 'ui/pages/SearchResults/SearchParameters';
+import { SearchParameters } from 'ui/types/SearchParameters';
 
 const PAGE_LIMIT = 20;
 

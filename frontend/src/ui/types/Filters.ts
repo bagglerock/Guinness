@@ -1,9 +1,9 @@
-export class FiltersModel {
+export class Filters {
   filters: {
     [key: string]: string[];
   } = {};
 
-  constructor(data: Partial<FiltersModel>) {
+  constructor(data: Partial<Filters>) {
     Object.assign(this, data);
   }
 }
