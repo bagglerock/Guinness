@@ -13,7 +13,7 @@ export const FilterSection: React.FC<FilterSectionProps> = ({ selectedFilters, o
   const handleCollapseToggle = () => setIsOpen(prev => !prev);
 
   const handleFilterChange = (selected: string[], keyName: string) => {
-    const updatedFilters = { filters: { ...selectedFilters.filters, [keyName]: selected } };
+    const updatedFilters = { ...selectedFilters, [keyName]: selected };
 
     onChange(updatedFilters);
   };

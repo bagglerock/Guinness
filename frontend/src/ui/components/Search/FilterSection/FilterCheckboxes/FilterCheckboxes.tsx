@@ -4,14 +4,12 @@ import React from 'react';
 import { Filters } from 'ui/types/Filters';
 
 export const FilterCheckboxes: React.FC<FilterCheckboxesProps> = ({ filterKey, filterValues, selectedFilters, onChange }) => {
-  const { filters } = selectedFilters;
-
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const { value } = event.target;
 
-    const nextSelections = includes(filters[filterKey], value)
-      ? pull(filters[filterKey], value)
-      : compact(concat(filters[filterKey], value));
+    const nextSelections = includes(selectedFilters[filterKey], value)
+      ? pull(selectedFilters[filterKey], value)
+      : compact(concat(selectedFilters[filterKey], value));
 
     onChange(nextSelections, filterKey);
   };
@@ -25,7 +23,7 @@ export const FilterCheckboxes: React.FC<FilterCheckboxesProps> = ({ filterKey, f
           inline
           label={filter}
           value={filter}
-          checked={includes(filters[filterKey], filter)}
+          checked={includes(selectedFilters[filterKey], filter)}
           onChange={handleChange}
         />
       ))}
