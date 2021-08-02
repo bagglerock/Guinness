@@ -1,31 +1,44 @@
 import { mapValues } from 'lodash';
-import { stringify } from 'query-string';
-import { useHistory } from 'react-router';
-import { Filters } from 'ui/types/Filters';
+import { parse, stringify } from 'query-string';
+import { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
+import { SearchParameters } from 'ui/types/SearchParameters';
 
-export const useSearch = (searchTerm: string, filters: Filters) => {
+export const useSearch = () => {
+  const [parameters, setParameters] = useState(new SearchParameters(new SearchParameters({})));
+
+  const location = useLocation();
+  const { query: currentQuery } = parse(location.search);
+
+  useEffect(() => {
+    setParameters({ ...parameters, query: currentQuery?.toString() || '' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentQuery]);
+
   const history = useHistory();
 
   const handleSearch = async () => {
-    if (searchTerm === '') {
+    if (parameters.query === '') {
       return;
     }
 
-    const params = makeSearchParams(searchTerm, filters);
+    const params = makeSearchQuery(parameters);
 
     history.push(`/search?${params}`);
   };
 
   return {
+    parameters,
+    setParameters,
     handleSearch,
   };
 };
 
-const makeSearchParams = (searchTerm: string, searchFilters: Filters) => {
-  const filters = mapValues(searchFilters, filter => filter);
+const makeSearchQuery = (parameters: SearchParameters) => {
+  const filters = mapValues(parameters.filters, filter => filter);
 
   const params = {
-    query: searchTerm,
+    query: parameters.query,
     pageNumber: 1,
     ...filters,
   };
