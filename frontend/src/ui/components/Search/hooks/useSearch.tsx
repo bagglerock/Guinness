@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router';
 import { SearchParameters } from 'ui/types/SearchParameters';
 
 export const useSearch = () => {
-  const [parameters, setParameters] = useState(new SearchParameters(new SearchParameters({})));
+  const [parameters, setParameters] = useState(new SearchParameters({}));
 
   const location = useLocation();
   const { query: currentQuery } = parse(location.search);
