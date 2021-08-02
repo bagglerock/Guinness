@@ -1,5 +1,6 @@
 import { Button, Card, Collapse, Tab, Tabs } from '@blueprintjs/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 import { FilterCheckboxes } from 'ui/components/Search/FilterSection/FilterCheckboxes/FilterCheckboxes';
 import { cuisines } from 'ui/components/Search/FilterSection/res/cuisines';
 import { diets } from 'ui/components/Search/FilterSection/res/diets';
@@ -11,6 +12,12 @@ import './FilterSection.scss';
 export const FilterSection: React.FC<FilterSectionProps> = ({ selectedFilters, onChange, onSubmit }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleCollapseToggle = () => setIsOpen(prev => !prev);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   const handleFilterChange = (selected: string[], keyName: string) => {
     const updatedFilters = { ...selectedFilters, [keyName]: selected };
@@ -89,7 +96,7 @@ export const FilterSection: React.FC<FilterSectionProps> = ({ selectedFilters, o
               />
             </Tabs>
 
-            <div className="text-right">
+            <div className="text-end">
               <Button type="submit">Set Filters</Button>
             </div>
           </form>
