@@ -1,4 +1,5 @@
 import { Button, Card, Collapse, Tab, Tabs } from '@blueprintjs/core';
+import { map } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { FilterCheckboxes } from 'ui/components/Search/FilterSection/FilterCheckboxes/FilterCheckboxes';
@@ -9,7 +10,7 @@ import { mealTypes } from 'ui/components/Search/FilterSection/res/mealTypes';
 import { Filters } from 'ui/types/Filters';
 import './FilterSection.scss';
 
-export const FilterSection: React.FC<FilterSectionProps> = ({ selectedFilters, onChange, onSubmit }) => {
+export const FilterSection: React.FC<FilterSectionProps> = ({ selectedFilters, onChange, onSubmit, shouldDisable }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleCollapseToggle = () => setIsOpen(prev => !prev);
 
@@ -35,71 +36,39 @@ export const FilterSection: React.FC<FilterSectionProps> = ({ selectedFilters, o
     <>
       <div className="text-center mb-2">
         <button className="filters__open-button" onClick={handleCollapseToggle}>
-          {'<'} Advanced Search Options {'>'}
+          {'<'} Advanced Search {'>'}
         </button>
       </div>
 
       <Collapse isOpen={isOpen}>
         <Card style={{ backgroundColor: 'white' }}>
-          <form onSubmit={handleSubmit}>
-            <Tabs vertical>
-              <Tab
-                id="cuisines"
-                title="Cuisines"
-                panel={
-                  <FilterCheckboxes
-                    filterValues={cuisines}
-                    selectedFilters={selectedFilters}
-                    onChange={handleFilterChange}
-                    filterKey="cuisines"
+          {shouldDisable ? (
+            <div className="d-flex align-items-center justify-content-center h-100">Filters cannot be shown without a search term.</div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <Tabs vertical>
+                {map(tabMap, tab => (
+                  <Tab
+                    key={tab.filterKey}
+                    id={tab.filterKey}
+                    title={tab.title}
+                    panel={
+                      <FilterCheckboxes
+                        filterValues={tab.filterValues}
+                        selectedFilters={selectedFilters}
+                        onChange={handleFilterChange}
+                        filterKey={tab.filterKey}
+                      />
+                    }
                   />
-                }
-              />
+                ))}
+              </Tabs>
 
-              <Tab
-                id="diets"
-                title="Diets"
-                panel={
-                  <FilterCheckboxes
-                    filterValues={diets}
-                    selectedFilters={selectedFilters}
-                    onChange={handleFilterChange}
-                    filterKey="diets"
-                  />
-                }
-              />
-
-              <Tab
-                id="mealTypes"
-                title="Meal Types"
-                panel={
-                  <FilterCheckboxes
-                    filterValues={mealTypes}
-                    selectedFilters={selectedFilters}
-                    onChange={handleFilterChange}
-                    filterKey="mealTypes"
-                  />
-                }
-              />
-
-              <Tab
-                id="intolerances"
-                title="Intolerances"
-                panel={
-                  <FilterCheckboxes
-                    filterValues={intolerances}
-                    selectedFilters={selectedFilters}
-                    onChange={handleFilterChange}
-                    filterKey="intolerances"
-                  />
-                }
-              />
-            </Tabs>
-
-            <div className="text-end">
-              <Button type="submit">Set Filters</Button>
-            </div>
-          </form>
+              <div className="text-end">
+                <Button type="submit">Set Filters</Button>
+              </div>
+            </form>
+          )}
         </Card>
       </Collapse>
     </>
@@ -110,4 +79,12 @@ interface FilterSectionProps {
   selectedFilters: Filters;
   onChange(newFilters: Filters): void;
   onSubmit(): void;
+  shouldDisable: boolean;
 }
+
+const tabMap = [
+  { title: 'Cuisines', filterKey: 'cuisines', filterValues: cuisines },
+  { title: 'Diets', filterKey: 'diets', filterValues: diets },
+  { title: 'Meal Types', filterKey: 'mealTypes', filterValues: mealTypes },
+  { title: 'Intolerances', filterKey: 'intolerances', filterValues: intolerances },
+];
