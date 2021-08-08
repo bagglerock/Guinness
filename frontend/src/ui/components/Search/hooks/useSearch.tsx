@@ -22,7 +22,12 @@ export const useSearch = () => {
       return;
     }
 
-    const params = makeSearchQuery({ ...parameters, pageNumber: 1 });
+    let filters = parameters.filters;
+    if (currentQuery === parameters.query) {
+      setParameters({ ...parameters, filters: {} });
+    }
+
+    const params = makeSearchQuery({ ...parameters, pageNumber: 1, filters });
 
     history.push(`/search?${params}`);
   };
