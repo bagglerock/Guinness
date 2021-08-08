@@ -12,7 +12,10 @@ class RecipeController {
       query: request.query?.toString() || '',
       pageNumber: +request.pageNumber! || 1,
       numExpected: 20,
-      filters: request.filters?.toString() || '',
+      cuisines: request.cuisines?.toString() || null,
+      diets: request.diets?.toString() || null,
+      mealTypes: request.mealTypes?.toString() || null,
+      intolerances: request.intolerances?.toString() || null,
     };
 
     try {

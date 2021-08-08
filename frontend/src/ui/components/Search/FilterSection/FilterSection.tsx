@@ -1,24 +1,34 @@
 import { Button, Card, Collapse, Tab, Tabs } from '@blueprintjs/core';
-import React, { useState } from 'react';
-import { FilterCheckboxes } from 'ui/components/Search/Filters/FilterCheckboxes/FilterCheckboxes';
-import { FiltersModel } from 'ui/components/Search/Filters/FiltersModel';
-import { cuisines } from 'ui/components/Search/Filters/res/cuisines';
-import { diets } from 'ui/components/Search/Filters/res/diets';
-import { intolerances } from 'ui/components/Search/Filters/res/intolerances';
-import { mealTypes } from 'ui/components/Search/Filters/res/mealTypes';
-import './Filters.scss';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
+import { FilterCheckboxes } from 'ui/components/Search/FilterSection/FilterCheckboxes/FilterCheckboxes';
+import { cuisines } from 'ui/components/Search/FilterSection/res/cuisines';
+import { diets } from 'ui/components/Search/FilterSection/res/diets';
+import { intolerances } from 'ui/components/Search/FilterSection/res/intolerances';
+import { mealTypes } from 'ui/components/Search/FilterSection/res/mealTypes';
+import { Filters } from 'ui/types/Filters';
+import './FilterSection.scss';
 
-export const Filters: React.FC<FiltersProps> = ({ selectedFilters, onChange }) => {
+export const FilterSection: React.FC<FilterSectionProps> = ({ selectedFilters, onChange, onSubmit }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const handleCollapseToggle = () => setIsOpen(prev => !prev);
 
-  const handleCollapseToggle = () => {
-    setIsOpen(prev => !prev);
-  };
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   const handleFilterChange = (selected: string[], keyName: string) => {
-    const updatedFilters = { filters: { ...selectedFilters.filters, [keyName]: selected } };
+    const updatedFilters = { ...selectedFilters, [keyName]: selected };
 
     onChange(updatedFilters);
+  };
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = event => {
+    event.preventDefault();
+
+    onSubmit();
   };
 
   return (
@@ -31,11 +41,7 @@ export const Filters: React.FC<FiltersProps> = ({ selectedFilters, onChange }) =
 
       <Collapse isOpen={isOpen}>
         <Card style={{ backgroundColor: 'white' }}>
-          <form
-            onSubmit={(event: any) => {
-              event?.preventDefault();
-            }}
-          >
+          <form onSubmit={handleSubmit}>
             <Tabs vertical>
               <Tab
                 id="cuisines"
@@ -90,7 +96,7 @@ export const Filters: React.FC<FiltersProps> = ({ selectedFilters, onChange }) =
               />
             </Tabs>
 
-            <div className="text-right">
+            <div className="text-end">
               <Button type="submit">Set Filters</Button>
             </div>
           </form>
@@ -100,7 +106,8 @@ export const Filters: React.FC<FiltersProps> = ({ selectedFilters, onChange }) =
   );
 };
 
-interface FiltersProps {
-  selectedFilters: FiltersModel;
-  onChange(newFilters: FiltersModel): void;
+interface FilterSectionProps {
+  selectedFilters: Filters;
+  onChange(newFilters: Filters): void;
+  onSubmit(): void;
 }

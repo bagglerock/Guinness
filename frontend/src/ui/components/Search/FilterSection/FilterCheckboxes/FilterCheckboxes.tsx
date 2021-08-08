@@ -1,17 +1,15 @@
 import { Checkbox } from '@blueprintjs/core';
 import { compact, concat, includes, map, pull } from 'lodash';
 import React from 'react';
-import { FiltersModel } from 'ui/components/Search/Filters/FiltersModel';
+import { Filters } from 'ui/types/Filters';
 
 export const FilterCheckboxes: React.FC<FilterCheckboxesProps> = ({ filterKey, filterValues, selectedFilters, onChange }) => {
-  const { filters } = selectedFilters;
-
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const { value } = event.target;
 
-    const nextSelections = includes(filters[filterKey], value)
-      ? pull(filters[filterKey], value)
-      : compact(concat(filters[filterKey], value));
+    const nextSelections = includes(selectedFilters[filterKey], value)
+      ? pull(selectedFilters[filterKey], value)
+      : compact(concat(selectedFilters[filterKey], value));
 
     onChange(nextSelections, filterKey);
   };
@@ -25,7 +23,7 @@ export const FilterCheckboxes: React.FC<FilterCheckboxesProps> = ({ filterKey, f
           inline
           label={filter}
           value={filter}
-          checked={includes(filters[filterKey], filter)}
+          checked={includes(selectedFilters[filterKey], filter)}
           onChange={handleChange}
         />
       ))}
@@ -36,6 +34,6 @@ export const FilterCheckboxes: React.FC<FilterCheckboxesProps> = ({ filterKey, f
 interface FilterCheckboxesProps {
   filterKey: string;
   filterValues: string[];
-  selectedFilters: FiltersModel;
+  selectedFilters: Filters;
   onChange(selected: string[], keyName: string): void;
 }
