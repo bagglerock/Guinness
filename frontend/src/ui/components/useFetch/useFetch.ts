@@ -6,6 +6,8 @@ export const useFetch = <T extends {}>(fetchFunc: () => Promise<T>, dependencies
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetchFunc()
       .then(res => setResult(res))
       .catch(error => setError(error))
