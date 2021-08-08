@@ -33,7 +33,12 @@ export const Search: React.FC = () => {
       />
 
       <div className="mt-1">
-        <FilterSection selectedFilters={parameters.filters} onChange={handleFiltersChange} onSubmit={handleSearch} />
+        <FilterSection
+          selectedFilters={parameters.filters}
+          onChange={handleFiltersChange}
+          onSubmit={handleSearch}
+          shouldDisable={parameters.query === ''}
+        />
       </div>
     </div>
   );

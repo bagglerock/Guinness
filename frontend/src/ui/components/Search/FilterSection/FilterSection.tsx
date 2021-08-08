@@ -9,7 +9,7 @@ import { mealTypes } from 'ui/components/Search/FilterSection/res/mealTypes';
 import { Filters } from 'ui/types/Filters';
 import './FilterSection.scss';
 
-export const FilterSection: React.FC<FilterSectionProps> = ({ selectedFilters, onChange, onSubmit }) => {
+export const FilterSection: React.FC<FilterSectionProps> = ({ selectedFilters, onChange, onSubmit, shouldDisable }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleCollapseToggle = () => setIsOpen(prev => !prev);
 
@@ -41,65 +41,71 @@ export const FilterSection: React.FC<FilterSectionProps> = ({ selectedFilters, o
 
       <Collapse isOpen={isOpen}>
         <Card style={{ backgroundColor: 'white' }}>
-          <form onSubmit={handleSubmit}>
-            <Tabs vertical>
-              <Tab
-                id="cuisines"
-                title="Cuisines"
-                panel={
-                  <FilterCheckboxes
-                    filterValues={cuisines}
-                    selectedFilters={selectedFilters}
-                    onChange={handleFilterChange}
-                    filterKey="cuisines"
-                  />
-                }
-              />
-
-              <Tab
-                id="diets"
-                title="Diets"
-                panel={
-                  <FilterCheckboxes
-                    filterValues={diets}
-                    selectedFilters={selectedFilters}
-                    onChange={handleFilterChange}
-                    filterKey="diets"
-                  />
-                }
-              />
-
-              <Tab
-                id="mealTypes"
-                title="Meal Types"
-                panel={
-                  <FilterCheckboxes
-                    filterValues={mealTypes}
-                    selectedFilters={selectedFilters}
-                    onChange={handleFilterChange}
-                    filterKey="mealTypes"
-                  />
-                }
-              />
-
-              <Tab
-                id="intolerances"
-                title="Intolerances"
-                panel={
-                  <FilterCheckboxes
-                    filterValues={intolerances}
-                    selectedFilters={selectedFilters}
-                    onChange={handleFilterChange}
-                    filterKey="intolerances"
-                  />
-                }
-              />
-            </Tabs>
-
-            <div className="text-end">
-              <Button type="submit">Set Filters</Button>
+          {shouldDisable ? (
+            <div className="d-flex align-items-center justify-content-center h-100">
+              <Card className="error-view">Filters cannot be shown without a search term.</Card>
             </div>
-          </form>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <Tabs vertical>
+                <Tab
+                  id="cuisines"
+                  title="Cuisines"
+                  panel={
+                    <FilterCheckboxes
+                      filterValues={cuisines}
+                      selectedFilters={selectedFilters}
+                      onChange={handleFilterChange}
+                      filterKey="cuisines"
+                    />
+                  }
+                />
+
+                <Tab
+                  id="diets"
+                  title="Diets"
+                  panel={
+                    <FilterCheckboxes
+                      filterValues={diets}
+                      selectedFilters={selectedFilters}
+                      onChange={handleFilterChange}
+                      filterKey="diets"
+                    />
+                  }
+                />
+
+                <Tab
+                  id="mealTypes"
+                  title="Meal Types"
+                  panel={
+                    <FilterCheckboxes
+                      filterValues={mealTypes}
+                      selectedFilters={selectedFilters}
+                      onChange={handleFilterChange}
+                      filterKey="mealTypes"
+                    />
+                  }
+                />
+
+                <Tab
+                  id="intolerances"
+                  title="Intolerances"
+                  panel={
+                    <FilterCheckboxes
+                      filterValues={intolerances}
+                      selectedFilters={selectedFilters}
+                      onChange={handleFilterChange}
+                      filterKey="intolerances"
+                    />
+                  }
+                />
+              </Tabs>
+
+              <div className="text-end">
+                <Button type="submit">Set Filters</Button>
+              </div>
+            </form>
+          )}
         </Card>
       </Collapse>
     </>
@@ -110,4 +116,5 @@ interface FilterSectionProps {
   selectedFilters: Filters;
   onChange(newFilters: Filters): void;
   onSubmit(): void;
+  shouldDisable: boolean;
 }
