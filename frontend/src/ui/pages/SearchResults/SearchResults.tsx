@@ -1,36 +1,30 @@
-import { parse } from 'query-string';
-import { stringify } from 'querystring';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { recipeRepository } from 'services/repositories/recipeRepository/recipeRepository';
-import { GenericErrorView } from 'ui/components/genericViews/GenericErrorView';
-import { GenericLoadingView } from 'ui/components/genericViews/GenericLoadingView';
+import { ErrorView } from 'ui/components/ErrorView/ErrorView';
+import { LoadingView } from 'ui/components/LoadingView/LoadingView';
+import { NoResultsView } from 'ui/components/NoResultsView/NoResultsView';
 import { Pagination } from 'ui/components/Pagination/Pagination';
 import { useFetch } from 'ui/components/useFetch/useFetch';
 import { RecipeSummariesList } from 'ui/pages/SearchResults/RecipeSummariesList/RecipeSummariesList';
-import { SearchParameters } from 'ui/pages/SearchResults/SearchParameters';
+import { makeSearchParameters } from 'ui/types/SearchParameters/utils/makeSearchParameters';
+import { makeSearchQuery } from 'ui/types/SearchParameters/utils/makeSearchQuery';
+
+const PAGE_LIMIT = 20;
 
 export const SearchResults: React.FC = () => {
   const location = useLocation();
-  const parsedUrl = parse(location.search);
-  const query = parsedUrl.query ? parsedUrl.query.toString() : '';
-  const pageNumber = parsedUrl.pageNumber ? +parsedUrl.pageNumber : 1;
-  const filters = parsedUrl.filters ? parsedUrl.filters.toString() : '';
-  const pageLimit = parsedUrl.pageLimit ? +parsedUrl.pageLimit : 20;
 
-  const parameters = new SearchParameters({
-    query,
-    pageNumber,
-    pageLimit,
-    filters,
-  });
+  const parameters = makeSearchParameters(location.search);
 
   const { result, error, isLoading } = useFetch(() => recipeRepository.getAllRecipes(parameters), [location]);
 
   const history = useHistory();
 
   const setPage = (pageNumber: number) => {
-    history.push(`/search?${stringify({ ...parameters, pageNumber })}`);
+    const params = makeSearchQuery({ ...parameters, pageNumber });
+
+    history.push(`/search?${params}`);
   };
 
   if (parameters?.query == null) {
@@ -38,15 +32,15 @@ export const SearchResults: React.FC = () => {
   }
 
   if (isLoading) {
-    return <GenericLoadingView />;
+    return <LoadingView />;
   }
 
   if (error != null) {
-    return <GenericErrorView />;
+    return <ErrorView />;
   }
 
   if (result?.totalResults === 0) {
-    return <p>Sorry, no results.</p>;
+    return <NoResultsView />;
   }
 
   return (
@@ -59,19 +53,14 @@ export const SearchResults: React.FC = () => {
         <Pagination
           totalResults={result?.totalResults || 0}
           currentPage={parameters.pageNumber}
-          pageLimit={parameters.pageLimit}
+          pageLimit={PAGE_LIMIT}
           gotoPage={setPage}
         />
       </div>
 
       <RecipeSummariesList recipes={result?.recipes || []} />
 
-      <Pagination
-        totalResults={result?.totalResults || 0}
-        currentPage={parameters.pageNumber}
-        pageLimit={parameters.pageLimit}
-        gotoPage={setPage}
-      />
+      <Pagination totalResults={result?.totalResults || 0} currentPage={parameters.pageNumber} pageLimit={PAGE_LIMIT} gotoPage={setPage} />
     </div>
   );
 };

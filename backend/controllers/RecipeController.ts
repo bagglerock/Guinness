@@ -11,8 +11,11 @@ class RecipeController {
     const parameters: SearchParameters = {
       query: request.query?.toString() || '',
       pageNumber: +request.pageNumber! || 1,
-      numExpected: +request.pageLimit! || 10,
-      filters: request.filters?.toString() || '',
+      numExpected: 20,
+      cuisines: request.cuisines?.toString() || null,
+      diets: request.diets?.toString() || null,
+      mealTypes: request.mealTypes?.toString() || null,
+      intolerances: request.intolerances?.toString() || null,
     };
 
     try {

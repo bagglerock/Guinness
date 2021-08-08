@@ -1,8 +1,8 @@
 import React from 'react';
-import { Footer } from 'ui/app/Layout/Footer/Footer';
-import { Header } from 'ui/app/Layout/Header/Header';
-import { Search } from 'ui/app/Layout/Search/Search';
 import { RoutesContainer } from 'ui/app/Routes/RoutesContainer';
+import { Footer } from 'ui/components/Footer/Footer';
+import { Header } from 'ui/components/Header/Header';
+import { Search } from 'ui/components/Search/Search';
 
 export const Layout: React.FC = () => (
   <div className="d-flex flex-column h-100">
