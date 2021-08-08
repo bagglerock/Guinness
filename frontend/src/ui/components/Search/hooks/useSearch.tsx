@@ -1,8 +1,8 @@
-import { mapValues } from 'lodash';
-import { parse, stringify } from 'query-string';
+import { parse } from 'query-string';
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import { SearchParameters } from 'ui/types/SearchParameters';
+import { SearchParameters } from 'ui/types/SearchParameters/SearchParameters';
+import { makeSearchQuery } from 'ui/types/SearchParameters/utils/makeSearchQuery';
 
 export const useSearch = () => {
   const [parameters, setParameters] = useState(new SearchParameters({}));
@@ -22,7 +22,7 @@ export const useSearch = () => {
       return;
     }
 
-    const params = makeSearchQuery(parameters);
+    const params = makeSearchQuery({ ...parameters, pageNumber: 1 });
 
     history.push(`/search?${params}`);
   };
@@ -32,16 +32,4 @@ export const useSearch = () => {
     setParameters,
     handleSearch,
   };
-};
-
-const makeSearchQuery = (parameters: SearchParameters) => {
-  const filters = mapValues(parameters.filters, filter => filter);
-
-  const params = {
-    query: parameters.query,
-    pageNumber: 1,
-    ...filters,
-  };
-
-  return stringify(params, { arrayFormat: 'comma', skipNull: true });
 };
