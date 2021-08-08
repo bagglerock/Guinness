@@ -23,7 +23,7 @@ export const useSearch = () => {
     }
 
     let filters = parameters.filters;
-    if (currentQuery === parameters.query) {
+    if (currentQuery !== parameters.query) {
       setParameters({ ...parameters, filters: {} });
     }
 
