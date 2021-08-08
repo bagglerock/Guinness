@@ -12,6 +12,7 @@ class RecipeManager {
       diet: parameters.diets,
       type: parameters.mealTypes,
       intolerances: parameters.intolerances,
+      instructionsRequired: true,
     };
 
     const queryString = stringify(queryParams, { skipNull: true });
