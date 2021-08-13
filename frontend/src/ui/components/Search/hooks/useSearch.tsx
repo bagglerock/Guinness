@@ -15,6 +15,12 @@ export const useSearch = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuery]);
 
+  useEffect(() => {
+    if (currentQuery == null) {
+      setParameters(new SearchParameters({}));
+    }
+  }, [location, currentQuery]);
+
   const history = useHistory();
 
   const handleSearch = async () => {
