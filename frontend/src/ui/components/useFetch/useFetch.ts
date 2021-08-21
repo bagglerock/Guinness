@@ -12,7 +12,6 @@ export const useFetch = <T extends {}>(fetchFunc: () => Promise<T>, dependencies
       .then(res => setResult(res))
       .catch(error => setError(error))
       .finally(() => setIsLoading(false));
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 
