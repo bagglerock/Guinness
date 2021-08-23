@@ -43,7 +43,7 @@ export const FilterSection: React.FC<FilterSectionProps> = ({ selectedFilters, o
       <Collapse isOpen={isOpen}>
         <Card style={{ backgroundColor: 'white' }}>
           {shouldDisable ? (
-            <div className="d-flex align-items-center justify-content-center h-100">Filters cannot be shown without a search term.</div>
+            <div className="d-flex align-items-center justify-content-center h-100">Filters unavailable without a search term.</div>
           ) : (
             <form onSubmit={handleSubmit}>
               <Tabs vertical>
