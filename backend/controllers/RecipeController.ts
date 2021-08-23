@@ -50,7 +50,6 @@ class RecipeController {
   };
 
   getRandomRecipes = async (_: Request, res: Response) => {
-    console.log('hit');
     try {
       const response = await spoonacularClient.getRandomRecipes();
 
