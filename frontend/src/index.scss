@@ -1,3 +1,7 @@
+@import './ui/style/reset.scss';
+@import './ui/app/_app.scss';
+@import './ui/style/_core.scss';
+
 html,
 body,
 #root {
@@ -18,5 +22,3 @@ body,
     flex: 0 0;
   }
 }
-
-@import './ui/app/_app.scss';
