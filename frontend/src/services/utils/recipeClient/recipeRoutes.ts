@@ -1,4 +1,5 @@
 export const recipeRoutes = {
-  getByKeyword: (queryString: string): string => `/api/recipe?${queryString}`,
-  getById: (id: string): string => `/api/recipe/${id}`,
+  getByKeyword: (queryString: string): string => `/api/recipes?${queryString}`,
+  getById: (id: string): string => `/api/recipes/${id}/recipe`,
+  getRandomRecipes: (): string => '/api/recipes/random',
 };

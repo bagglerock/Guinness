@@ -1,0 +1,20 @@
+@import '../../style/variables.scss';
+
+.header {
+  padding: 5px;
+  background-color: $color-three;
+  text-align: center;
+}
+
+.header-title {
+  font-family: $font-one;
+  font-size: 28px;
+  font-weight: bolder;
+  color: $color-one;
+  text-shadow: 3px 3px $color-two;
+}
+
+.header-title:hover {
+  color: $color-one;
+  text-decoration: none;
+}

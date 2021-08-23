@@ -1,7 +1,13 @@
+@import './ui/style/reset.scss';
+@import './ui/app/_app.scss';
+@import './ui/style/_core.scss';
+@import './ui/style/variables';
+
 html,
 body,
 #root {
   height: 100%;
+  font-family: $font-three;
 }
 
 #root {
@@ -18,5 +24,3 @@ body,
     flex: 0 0;
   }
 }
-
-@import './ui/app/_app.scss';

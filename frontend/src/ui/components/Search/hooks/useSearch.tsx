@@ -6,16 +6,20 @@ import { makeSearchQuery } from 'ui/types/SearchParameters/utils/makeSearchQuery
 
 export const useSearch = () => {
   const [parameters, setParameters] = useState(new SearchParameters({}));
-
+  const history = useHistory();
   const location = useLocation();
   const { query: currentQuery } = parse(location.search);
 
   useEffect(() => {
+    if (currentQuery == null) {
+      setParameters(new SearchParameters({}));
+
+      return;
+    }
+
     setParameters({ ...parameters, query: currentQuery?.toString() || '' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuery]);
-
-  const history = useHistory();
 
   const handleSearch = async () => {
     if (parameters.query === '') {

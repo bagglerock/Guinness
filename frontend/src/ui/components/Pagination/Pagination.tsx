@@ -1,9 +1,9 @@
+import { faFastBackward, faFastForward, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ceil, map } from 'lodash';
 import React from 'react';
 import { getPagesToDisplay } from 'ui/components/Pagination/utils/getPagesToDisplay';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Pagination.scss';
-import { faFastBackward, faFastForward, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons';
 
 const NUMBER_OF_ADJACENT_PAGES = 2;
 

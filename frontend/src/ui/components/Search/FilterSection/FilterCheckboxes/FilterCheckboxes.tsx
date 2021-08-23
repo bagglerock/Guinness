@@ -20,6 +20,7 @@ export const FilterCheckboxes: React.FC<FilterCheckboxesProps> = ({ filterKey, f
         <Checkbox
           key={filter}
           className="mr-4"
+          style={{ fontSize: '.9em' }}
           inline
           label={filter}
           value={filter}

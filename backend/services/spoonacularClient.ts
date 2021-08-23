@@ -26,6 +26,12 @@ class SpoonacularClient {
 
     return response.data;
   };
+
+  getRandomRecipes = async () => {
+    const response = await this.httpClient.get(`/recipes/random?number=4&apiKey=${SPOONACULAR_API_KEY}`);
+
+    return response.data;
+  };
 }
 
 export const spoonacularClient = new SpoonacularClient();

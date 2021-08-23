@@ -14,13 +14,10 @@ const PAGE_LIMIT = 20;
 
 export const SearchResults: React.FC = () => {
   const location = useLocation();
-
   const parameters = makeSearchParameters(location.search);
-
   const { result, error, isLoading } = useFetch(() => recipeRepository.getAllRecipes(parameters), [location]);
 
   const history = useHistory();
-
   const setPage = (pageNumber: number) => {
     const params = makeSearchQuery({ ...parameters, pageNumber });
 
@@ -44,7 +41,7 @@ export const SearchResults: React.FC = () => {
   }
 
   return (
-    <div className="mt-3 mr-3 ml-3">
+    <div className="mt-3 mx-3">
       <div className="mb-3">
         <h2 className="page-heading">Search Results: </h2>
       </div>
