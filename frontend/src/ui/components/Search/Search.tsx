@@ -4,6 +4,7 @@ import React from 'react';
 import { FilterSection } from 'ui/components/Search/FilterSection/FilterSection';
 import { useSearch } from 'ui/components/Search/hooks/useSearch';
 import { Filters } from 'ui/types/Filters';
+import './Search.scss';
 
 export const Search: React.FC = () => {
   const { parameters, setParameters, handleSearch } = useSearch();
@@ -19,7 +20,7 @@ export const Search: React.FC = () => {
   const handleFiltersChange = (updatedFilters: Filters) => setParameters({ ...parameters, filters: { ...updatedFilters } });
 
   return (
-    <div className="bg-danger p-3">
+    <div className="p-3 search-wrapper">
       <InputGroup
         onChange={handleChange}
         value={parameters.query}
