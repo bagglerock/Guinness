@@ -49,6 +49,17 @@ class RecipeController {
     }
   };
 
+  getRandomRecipes = async (_: Request, res: Response) => {
+    console.log('hit');
+    try {
+      const response = await spoonacularClient.getRandomRecipes();
+
+      res.status(200).send(response);
+    } catch (e) {
+      this.handleError(e, res);
+    }
+  };
+
   handleError = (e: AxiosError, res: Response) => {
     if (e.response != null) {
       res.status(e.response.status).send(e.response.data);

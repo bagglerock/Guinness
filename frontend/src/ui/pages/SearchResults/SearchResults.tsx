@@ -41,7 +41,7 @@ export const SearchResults: React.FC = () => {
   }
 
   return (
-    <div className="mt-3 mr-3 ml-3">
+    <div className="mt-3 mx-3">
       <div className="mb-3">
         <h2 className="page-heading">Search Results: </h2>
       </div>

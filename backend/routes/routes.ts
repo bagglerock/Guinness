@@ -3,5 +3,6 @@ import { recipeController } from '../controllers/RecipeController';
 
 export const router = Router();
 
-router.get('/api/recipe/', recipeController.getRecipesByKeyword);
-router.get('/api/recipe/:id', recipeController.getRecipeById);
+router.get('/api/recipes/', recipeController.getRecipesByKeyword);
+router.get('/api/recipes/:id/recipe', recipeController.getRecipeById);
+router.get('/api/recipes/random', recipeController.getRandomRecipes);

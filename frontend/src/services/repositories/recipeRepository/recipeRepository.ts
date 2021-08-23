@@ -1,3 +1,4 @@
+import { HomePageSummary, mapHomePageSummaries } from 'services/repositories/recipeRepository/mappers/mapHomePageSummaries';
 import { mapRecipe } from 'services/repositories/recipeRepository/mappers/mapRecipe';
 import { mapRecipeSummaries } from 'services/repositories/recipeRepository/mappers/mapRecipeSummaries';
 import { Recipe } from 'services/repositories/recipeRepository/models/Recipe';
@@ -23,6 +24,14 @@ class RecipeRepository {
     const response = await recipeClient.getById(route);
 
     return mapRecipe(response.data);
+  }
+
+  async getRandomRecipes(): Promise<HomePageSummary[]> {
+    const route = recipeRoutes.getRandomRecipes();
+
+    const response = await recipeClient.getRandomRecipes(route);
+
+    return mapHomePageSummaries(response.data);
   }
 }
 
