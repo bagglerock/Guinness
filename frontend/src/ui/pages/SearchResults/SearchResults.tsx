@@ -22,6 +22,8 @@ export const SearchResults: React.FC = () => {
     const params = makeSearchQuery({ ...parameters, pageNumber });
 
     history.push(`/search?${params}`);
+
+    scrollToTop();
   };
 
   if (parameters?.query == null) {
@@ -43,7 +45,7 @@ export const SearchResults: React.FC = () => {
   return (
     <div className="mt-3 mx-3">
       <div className="mb-3">
-        <h2 className="page-heading">Search Results: </h2>
+        <h2 className="page-heading">Results for {parameters.query} </h2>
       </div>
 
       <div className="mb-3">
@@ -61,3 +63,5 @@ export const SearchResults: React.FC = () => {
     </div>
   );
 };
+
+const scrollToTop = () => window.scrollTo(0, 0);
