@@ -22,46 +22,67 @@ export const Recipe: React.FC = () => {
   }
 
   return (
-    <>
-      <h2>{result.title}</h2>
+    <div className="px-5 pt-3">
+      <h2 className="mb-4">{result.title}</h2>
 
-      <img src={result.image} alt={result.title} />
+      <div className="d-flex mb-4">
+        <div className="w-50">
+          <div className="mb-3">
+            <p className="mb-3">Preparation Time(Minutes): {result.minutes}</p>
+            <p className="mb-3">Servings: {result.servings}</p>
+            <p className="mb-3">Weight Watcher Smart Points: {result.weightWatcherSmartPoints}</p>
+          </div>
 
-      <p>Weight Watcher Smart Points: {result.weightWatcherSmartPoints}</p>
-      <p>Preparation Time(Minutes): {result.minutes}</p>
-      <p>Servings: {result.servings}</p>
-      <p>{result.summary}</p>
-
-      <h3>Ingredients: </h3>
-      <ul>
-        {map(result.ingredients, ingredient => (
-          <li key={ingredient}>{ingredient}</li>
-        ))}
-      </ul>
-
-      <p>{result.instructions}</p>
-
-      <ul>
-        {map(result.analyzedInstructions, stage => (
-          <li key={stage.name}>
-            <p>{stage.name}</p>
+          <div>
+            <h3 className="mb-3" style={{ fontSize: '1.4em' }}>
+              Ingredients:
+            </h3>
             <ul>
-              {map(stage.steps, step => (
-                <li key={step.stepNumber}>
-                  Step: {step.stepNumber} - {step.stepInstruction}
-                </li>
+              {map(result.ingredients, ingredient => (
+                <li key={ingredient}>{ingredient}</li>
               ))}
             </ul>
-          </li>
-        ))}
-      </ul>
+          </div>
+        </div>
 
-      <p>
-        Source URL:{' '}
-        <a href={result.sourceUrl} target="blank" rel="noopener noreferrer">
-          {result.sourceUrl}
-        </a>
-      </p>
-    </>
+        <div className="w-50">
+          <img src={result.image} alt={result.title} width="100%" />
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <p>{result.summary}</p>
+      </div>
+
+      <div className="mb-4">
+        <h3 className="mb-3" style={{ fontSize: '1.4em' }}>
+          Instructions:
+        </h3>
+
+        <ul>
+          {map(result.analyzedInstructions, stage => (
+            <li key={stage.name}>
+              <p>{stage.name}</p>
+              <ul>
+                {map(stage.steps, step => (
+                  <li key={step.stepNumber}>
+                    Step: {step.stepNumber} - {step.stepInstruction}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mb-4">
+        <p>
+          Source URL:{' '}
+          <a href={result.sourceUrl} target="blank" rel="noopener noreferrer">
+            {result.sourceUrl}
+          </a>
+        </p>
+      </div>
+    </div>
   );
 };

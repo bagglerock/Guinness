@@ -7,9 +7,6 @@ export const mapRecipe = (data: any): Recipe => {
   const cleanedSummary = sanitize(data.summary, { USE_PROFILES: { html: true } });
   const summaryJsx = ReactHtmlParser(cleanedSummary);
 
-  const cleanedInstructions = sanitize(data.instructions, { USE_PROFILES: { html: true } });
-  const instructionsJsx = ReactHtmlParser(cleanedInstructions);
-
   const ingredients = map(data.extendedIngredients, ingredient => ingredient.name);
   const analyzedInstructions = map(data.analyzedInstructions, stage => {
     const steps = map(stage.steps, step => {
@@ -32,7 +29,6 @@ export const mapRecipe = (data: any): Recipe => {
     minutes: data.readyInMinutes || 0,
     servings: data.servings || 0,
     summary: summaryJsx,
-    instructions: instructionsJsx,
     analyzedInstructions: analyzedInstructions || {},
     image: data.image || '',
     sourceUrl: data.sourceUrl || '',
