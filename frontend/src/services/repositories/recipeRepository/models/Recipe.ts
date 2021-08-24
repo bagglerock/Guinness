@@ -4,8 +4,7 @@ export class Recipe {
   ingredients: string[];
   minutes: number;
   servings: number;
-  summary: string | Element;
-  instructions: string | Element;
+  summary: React.ReactElement<any, string | React.JSXElementConstructor<any>>[];
   analyzedInstructions: Stage[];
   image: string;
   sourceUrl: string;

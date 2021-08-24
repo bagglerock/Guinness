@@ -1,7 +1,12 @@
+import { sanitize } from 'dompurify';
 import { map } from 'lodash';
+import ReactHtmlParser from 'react-html-parser';
 import { Recipe } from 'services/repositories/recipeRepository/models/Recipe';
 
 export const mapRecipe = (data: any): Recipe => {
+  const cleanedSummary = sanitize(data.summary, { USE_PROFILES: { html: true } });
+  const summaryJsx = ReactHtmlParser(cleanedSummary);
+
   const ingredients = map(data.extendedIngredients, ingredient => ingredient.name);
   const analyzedInstructions = map(data.analyzedInstructions, stage => {
     const steps = map(stage.steps, step => {
@@ -23,8 +28,7 @@ export const mapRecipe = (data: any): Recipe => {
     ingredients: ingredients || [],
     minutes: data.readyInMinutes || 0,
     servings: data.servings || 0,
-    summary: data.summary || '',
-    instructions: data.instructions || '',
+    summary: summaryJsx,
     analyzedInstructions: analyzedInstructions || {},
     image: data.image || '',
     sourceUrl: data.sourceUrl || '',
