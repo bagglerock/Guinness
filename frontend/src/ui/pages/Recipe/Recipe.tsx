@@ -34,9 +34,7 @@ export const Recipe: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="mb-3" style={{ fontSize: '1.4em' }}>
-              Ingredients:
-            </h3>
+            <h3 className="mb-3">Ingredients:</h3>
             <ul>
               {map(result.ingredients, ingredient => (
                 <li key={ingredient}>{ingredient}</li>
