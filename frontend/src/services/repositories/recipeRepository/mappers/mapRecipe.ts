@@ -7,7 +7,7 @@ export const mapRecipe = (data: any): Recipe => {
   const cleanedSummary = sanitize(data.summary, { USE_PROFILES: { html: true } });
   const summaryJsx = ReactHtmlParser(cleanedSummary);
 
-  const ingredients = map(data.extendedIngredients, ingredient => ingredient.name);
+  const ingredients = map(data.extendedIngredients, ingredient => ingredient.original);
   const analyzedInstructions = map(data.analyzedInstructions, stage => {
     const steps = map(stage.steps, step => {
       return {
