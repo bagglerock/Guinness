@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import { Request, Response } from 'express';
 import { recipeManager } from '../managers/RecipeManager';
 import { SearchParameters } from '../managers/SearchParameters';
