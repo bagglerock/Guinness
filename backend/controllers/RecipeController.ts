@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import { Request, Response } from 'express';
 import { recipeManager } from '../managers/RecipeManager';
 import { SearchParameters } from '../managers/SearchParameters';
@@ -59,7 +58,7 @@ class RecipeController {
     }
   };
 
-  handleError = (e: AxiosError, res: Response) => {
+  handleError = (e: any, res: Response) => {
     if (e.response != null) {
       res.status(e.response.status).send(e.response.data);
 

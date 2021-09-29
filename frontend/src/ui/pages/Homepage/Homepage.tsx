@@ -35,16 +35,10 @@ export const Homepage: React.FC = () => {
           return (
             <li className="home-page__summary-list-item" key={summary.id}>
               <Card>
-                <img
-                  className="home-page__summary-image"
-                  src={summary.image}
-                  alt={summary.title}
-                  id={`${summary.id}`}
-                  onClick={handleRecipeClick}
-                />
+                <img className="w-100" src={summary.image} alt={summary.title} id={`${summary.id}`} onClick={handleRecipeClick} />
 
                 <div className="pt-3 mb-3">
-                  <h3 className="home-page__summary-heading" id={`${summary.id}`} onClick={handleRecipeClick}>
+                  <h3 className="mb-3" id={`${summary.id}`} onClick={handleRecipeClick}>
                     {summary.title}
                   </h3>
 

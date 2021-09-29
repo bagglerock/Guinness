@@ -26,7 +26,7 @@ export const Recipe: React.FC = () => {
       <h2 className="mb-4">{result.title}</h2>
 
       <div className="d-flex mb-4">
-        <div className="w-50">
+        <div className="w-50 pe-5">
           <div className="mb-3">
             <p className="mb-3">Preparation Time(Minutes): {result.minutes}</p>
             <p className="mb-3">Servings: {result.servings}</p>
@@ -34,14 +34,7 @@ export const Recipe: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="mb-3" style={{ fontSize: '1.4em' }}>
-              Ingredients:
-            </h3>
-            <ul>
-              {map(result.ingredients, ingredient => (
-                <li key={ingredient}>{ingredient}</li>
-              ))}
-            </ul>
+            <p>{result.summary}</p>
           </div>
         </div>
 
@@ -51,7 +44,12 @@ export const Recipe: React.FC = () => {
       </div>
 
       <div className="mb-4">
-        <p>{result.summary}</p>
+        <h3 className="mb-3">Ingredients:</h3>
+        <ul>
+          {map(result.ingredients, ingredient => (
+            <li key={ingredient}>{ingredient}</li>
+          ))}
+        </ul>
       </div>
 
       <div className="mb-4">
