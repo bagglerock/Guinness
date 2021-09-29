@@ -22,12 +22,15 @@
   },
   "scripts": {
     "start": "clear && if-env NODE_ENV=production && yarn start:prod || yarn start:dev",
-    "start:prod": "node server.ts",
+    "start:prod": "node dist/server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"yarn client\"",
     "client": "cd ./frontend && yarn start",
     "install": "cd ./frontend && yarn install",
     "build": "cd ./frontend && yarn build cd ./tsc",
-    "postinstall": "yarn build",
+    "postinstall": "tsc",
     "deploy": "yarn build && git add . && git commit -m \"Building for production\" && git push heroku master"
+  },
+  "engines": {
+    "node": "14.17.5"
   }
 }
