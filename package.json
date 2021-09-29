@@ -21,12 +21,13 @@
     "query-string": "^7.0.1"
   },
   "scripts": {
-    "start": "clear && if-env NODE_ENV=production && npm run start:prod || yarn start:dev",
+    "start": "clear && if-env NODE_ENV=production && yarn start:prod || yarn start:dev",
     "start:prod": "node server.ts",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"yarn client\"",
     "client": "cd ./frontend && yarn start",
     "install": "cd ./frontend && yarn install",
-    "build": "cd ./frontend && yarn build cd ./backend/tsc",
+    "build": "cd ./frontend && yarn build cd ./tsc",
+    "postinstall": "yarn build",
     "deploy": "yarn build && git add . && git commit -m \"Building for production\" && git push heroku master"
   }
 }
