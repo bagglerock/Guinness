@@ -1,11 +1,7 @@
 {
-  "name": "backend",
+  "name": "recipe-app",
   "version": "1.0.0",
   "main": "server.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bagglerock"
-  },
   "license": "MIT",
   "devDependencies": {
     "@types/express": "^4.17.8",
