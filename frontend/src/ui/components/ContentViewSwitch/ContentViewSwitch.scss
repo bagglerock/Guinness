@@ -1,0 +1,38 @@
+// import React from 'react';
+// import { ErrorView as GenericErrorView } from 'ui/components/ErrorView/ErrorView';
+// import { LoadingView as GenericLoadingView } from 'ui/components/LoadingView/LoadingView';
+// import { NoResultsView as GenericNoResultsView } from 'ui/components/NoResultsView/NoResultsView';
+// import { useFetch } from 'ui/components/useFetch/useFetch';
+
+// export const ContentViewSwitch: React.FC<ContentViewSwitchProps> = ({
+//   fetchFunc,
+//   dependencies,
+//   LoadingView = GenericLoadingView,
+//   ErrorView = GenericErrorView,
+//   NoResultsView = GenericNoResultsView,
+//   children,
+// }) => {
+//   const { result, error, isLoading } = useFetch(() => fetchFunc, [...dependencies]);
+
+//   if (isLoading) {
+//     return <LoadingView />;
+//   }
+
+//   if (error != null) {
+//     return <ErrorView />;
+//   }
+
+//   if (result?.totalResults === 0) {
+//     return <NoResultsView />;
+//   }
+
+//   return children;
+// };
+
+// interface ContentViewSwitchProps {
+//   fetchFunc: any;
+//   dependencies: any[];
+//   LoadingView?: JSX.Element;
+//   ErrorView?: JSX.Element;
+//   NoResultsView?: JSX.Element;
+// }
