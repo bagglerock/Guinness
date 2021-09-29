@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "clear && if-env NODE_ENV=production && npm run start:prod || yarn start:dev",
-    "start:prod": "node backend/server.ts",
+    "start:prod": "node server.ts",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"yarn client\"",
     "client": "cd ./frontend && yarn start",
     "install": "cd ./frontend && yarn install",
