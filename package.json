@@ -23,11 +23,11 @@
   },
   "scripts": {
     "start": "clear && if-env NODE_ENV=production && npm run start:prod || yarn start:dev",
-    "start:prod": "node ./backend/dist/server.js",
+    "start:prod": "node ./backend/dist/src/server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"yarn client\"",
     "client": "cd ../frontend && yarn start",
     "install": "cd ../frontend && yarn install",
-    "build": "cd ../frontend && yarn build cd ../backend/tsc",
+    "build": "cd ../frontend && yarn build",
     "postinstall": "yarn ./backend/tsc"
   }
 }
