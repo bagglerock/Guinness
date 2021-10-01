@@ -28,6 +28,6 @@
     "client": "cd ./frontend && yarn start",
     "install": "cd ./frontend && yarn install",
     "build": "cd ./frontend && yarn build",
-    "postinstall": "yarn ./backend/tsc"
+    "postinstall": ""
   }
 }
