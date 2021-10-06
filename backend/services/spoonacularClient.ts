@@ -1,10 +1,7 @@
 import { AxiosInstance, default as axios } from 'axios';
-import dotenv from 'dotenv';
-
-const env = dotenv.config();
 
 const SPOONACULAR_URL = 'https://api.spoonacular.com/';
-const SPOONACULAR_API_KEY = env.parsed?.SPOONACULAR_API_KEY || '';
+const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY || '';
 
 class SpoonacularClient {
   httpClient: AxiosInstance;
