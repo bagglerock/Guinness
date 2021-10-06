@@ -4,7 +4,7 @@
     "module": "commonjs",
     "outDir": "dist",
     "rootDir": "./",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "strict": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
@@ -17,7 +17,7 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "paths": {
-      "*": ["node_modules/*", "src/types/*"]
+      "*": ["node_modules/*"]
     }
   },
   "include": ["src/**/*", "backend/**/*"],
