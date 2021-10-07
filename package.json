@@ -9,6 +9,7 @@
     "@types/node": "^14.6.4",
     "axios": "^0.21.1",
     "concurrently": "^6.2.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
     "nodemon": "^2.0.12",
@@ -22,7 +23,7 @@
   },
   "scripts": {
     "start": "clear && if-env NODE_ENV=production && npm run start:prod || yarn start:dev",
-    "start:prod": "node ./backend/dist/src/server.js",
+    "start:prod": "node -r dotenv/config ./backend/dist/src/server.js dotenv_config_path=../.env",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"yarn client\"",
     "client": "cd ./frontend && yarn start",
     "install": "cd ./frontend && yarn install",
